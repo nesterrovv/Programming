@@ -56,6 +56,7 @@ b.addAlly(p1);
 b.addFoe(p2);
 b.go();
 
+
 4. Create one of the Pokemon classes for your variant. The class must inherit from the base Pokemon class. In the constructor, you will need to set the types of the Pokemon and its basic characteristics. After that, try adding the Pokémon to the battle.
 5. Create one of the attack classes for your variant (it is best to start with a physical or special attack). The class must inherit from the PhysicalMove or SpecialMove class. In the constructor, you will need to specify the type of attack, its strength and accuracy. After that, add an attack to the Pokemon and test its action in battle. Don't forget to override the describe method to display the desired message.
 6. If the attack action differs from the standard one, for example, the Pokemon does not miss, or the attacking Pokemon also receives damage, then the corresponding methods must be additionally redefined in the attack class (see the documentation). When implementing attacks that change the status of a Pokemon (inherited from StatusMove), you will most likely have to deal with the Effect class. It allows you to change the state of the Pokemon or the modifier of its basic characteristics for one or several turns.
