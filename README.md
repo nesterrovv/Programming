@@ -24,6 +24,7 @@ The report has been uploaded to the repository. (Laba1_Nesterov_R3137.docx)
 
 ______________________________________________________________________________________________________________________________________________________________________
 Laboratory work #2, variant 389512
+
 Based on the base Pokemon class, write your own classes for the specified types of Pokemon. Each type of Pokémon must have one or two types and standard basic characteristics:
 1. Health points (HP)
 2. Attack (attack)
