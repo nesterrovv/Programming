@@ -10,8 +10,6 @@ Write a Java program that performs the appropriate action options. The program m
 3. The program must use math functions from the Java standard library.
 4. The result of evaluating the expression to be output to standard output must be output in the specified format.
 
-The task text has been uploaded to the repository.
-
 The program must be executed on the helios server.
 
 The laboratory report should contain:
@@ -19,4 +17,8 @@ The laboratory report should contain:
 2. Source code of the program.
 3. The result of the program.
 4. Conclusions on the work.
+
+
+The task text has been uploaded to the repository. (Task.jpg)
+The report has been uploaded to the repository. (Laba1_Nesterov_R3137.docx)
 
