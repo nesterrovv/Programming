@@ -67,8 +67,13 @@ b.go();
 6. If the attack action differs from the standard one, for example, the Pokemon does not miss, or the attacking Pokemon also receives damage, then the corresponding methods must be additionally redefined in the attack class (see the documentation). When implementing attacks that change the status of a Pokemon (inherited from StatusMove), you will most likely have to deal with the Effect class. It allows you to change the state of the Pokemon or the modifier of its basic characteristics for one or several turns.
 7. Finish all the necessary attacks and all the Pokémon, distribute the Pokémon by teams, start the battle.
 
-ATTENRION
+ATTENTION
 
 Information on how to connect an external jar file to your program using InelliJ IDEA can be found here: https://javadevblog.com/kak-dobavit-biblioteku-jar-fajl-v-proekt-intellij-idea.html
 
-However, you may need to include the jar file without using a development environment. In this case, I recommend examining the classpath. The fact is that when connecting an external jar file, you need to add information about this connection to the manifest of your file, which is what the development environment does. However, you cannot unzip the jar file yourself, add the required line to the manifest and zip everything back into the archive.
+However, you may need to include the jar file without using a development environment. In this case, I recommend examining the classpath. The fact is that when connecting an external jar file, you need to add information about this connection to the manifest of your file, which is what the development environment does. However, you cannot unzip the jar file yourself, add the required line to the manifest and zip everything back into the archive. You can solve this problem by using the build jar file command in the manifest. Instead of cfe parameters, you need to pass cfm parameters, and then specify the full path to the file that contains the information that needs to be entered into the manifest. I added this information to the adding.txt file and uploaded it to the repository. In addition, I quote this command in full (to build a jar file from the java class files I need): 
+
+jar cfm Final.jar "Path\to\adding.txt" AcidSpray.class Bite.class BodySlam.class Charjabug.class Crunch.class Grubbin.class Gulpin.class Main.class Mimikyu.class MudSlap.class PinMissile.class Pound.class Present.class SludgeWave.class SuperBite.class Swalot.class Twineedle.class Vikavolt.class ZingZap.class
+
+I hope these instructions will help you solve your problem. Good luck!
+
