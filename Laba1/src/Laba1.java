@@ -2,15 +2,16 @@ public class Laba1 {
     public static void main(String[] args) {
         int num = 20;
         long[] d = new long[10]; // First array
-        double[] x = new double[16]; // Second array
-        double[][] answer = new double[10][16]; // Third array
+        double [] x = new double[16]; // Second array
+        double [][] answer = new double[10][16]; // Third array
         for (int i = 0; i < d.length; i++) {
             d[i] = num - 2 * i; // To stack the first array
         }
         double start = -11.0;
-        for (int i = 0; i < x.length; i++) {
+        for(int i = 0; i < x.length; i++) {
             x[i] = start + (Math.random() * 16); // To stack the second array
         }
+
         for (int i = 0; i < 10; i++) { // To stack the third array
             for (int j = 0; j < 16; j++) {
                 switch ((int) d[i]) {
@@ -46,9 +47,9 @@ public class Laba1 {
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 16; j++) {
                 System.out.format("%-10.2f", answer[i][j]);
+                //System.out.println(answer[i][j]);
             }
             System.out.println(" ");
         }
     }
 }
-
