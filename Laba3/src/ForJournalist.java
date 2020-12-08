@@ -3,7 +3,7 @@ public interface ForJournalist {
     //String say(String name);
     void setInformationAboutTheEarth(String inform);
     String getInformationAboutTheMoon();
-    boolean isHasSeed();
+    boolean hasSeed();
     void setTheme(String theme);
     String getTheme();
     void setOpponents(String opponent);
