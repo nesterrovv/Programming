@@ -1,4 +1,4 @@
-public class Journalist {
+public class Journalist implements ForJournalist {
 
     Info information = new Info(); // Instantiating a class
     Journalist journalist = new Journalist();
