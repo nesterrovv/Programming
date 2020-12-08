@@ -1,4 +1,4 @@
-public class Journalist implements ForJournalist extends HomoSapiens {
+public class Journalist extends HomoSapiens implements ForJournalist {
 
     Info information = new Info(); // Instantiating a class
     Journalist journalist = new Journalist();
@@ -13,6 +13,7 @@ public class Journalist implements ForJournalist extends HomoSapiens {
     private final String aboutTheEarth = information.getInfoAboutTheEarth(); // Information
     private final String aboutTheMoon = information.getInfoAboutTheMoon();
 
+    @Override
     public String say(String name) {
         System.out.println("Здравствуйте " + opponent + name + "!");
         System.out.println("Вы же " + journalist.getJob() + "?");
@@ -37,7 +38,7 @@ public class Journalist implements ForJournalist extends HomoSapiens {
         return this.aboutTheMoon;
     }
 
-    public boolean isHasSeed() {
+    public boolean HasSeed() {
         return hasSeed;
     }
 
@@ -56,7 +57,7 @@ public class Journalist implements ForJournalist extends HomoSapiens {
     public String getOpponent() {
         return this.opponent;
     }
-
+    @Override
     public void setName(String name) {
         this.name = name;
     }
