@@ -8,6 +8,7 @@ public class Scientist extends HomoSapiens implements ForScientist {
     private boolean hasSeed = false;
     private String knowledge = null;
     private String data = null;
+    private final boolean t = true;
 
     public String explorePlanet() {
         System.out.println("В НИИ поступила информация от журналиста");
@@ -27,9 +28,30 @@ public class Scientist extends HomoSapiens implements ForScientist {
         this.data = information.getInfoAboutTheEarth();
     }
 
-    public void explorePlant() {
-        
+    public void explorePlant(Plant p) {
+        System.out.println("В НИИ поступили образцы растений с Земли");
+        Scientist.plant(Plant p);
+        Scientist.water(Plant p);
+        System.out.println("Семена посажены в горшочек.");
+        System.out.println("Данные загружены.");
+        knowledge = this.data;
+        if (knowledge != null) {
+            System.out.println("Ученый " + name + "начал изучать информацию");
+            return "Феноменально!";
+        }
+        else {
+            return "Что-то пошло не так! Информацию невозможно понять...";
+        }
     }
+
+    public void plant(Plant p) {
+        p.getSoil();boolean this.t);
+    }
+
+    public void water(Plant p) {
+        p.getWater();
+    }
+
 
     @Override
     public void setJob(String job) {
