@@ -2,12 +2,21 @@ public class Journalist {
 
     Info information = new Info(); // Instantiating a class
     Journalist journalist = new Journalist();
-    private boolean hasSeed = false;
 
+    private boolean hasSeed = false;
+    private String theme = "";
+    private String opponent = "неизвестный";
+    private String name = "Неизвестный";
+    private String homePlanet = "Неизвестная планета";
     private String knowledge = null;
+    private String job = "";
+    private final String aboutTheEarth = information.getInfoAboutTheEarth(); // Information
+    private final String aboutTheMoon = information.getInfoAboutTheMoon();
 
     public String say(String name) {
-        System.out.println("Здравствуйте " + name + "!");
+        System.out.println("Здравствуйте " + opponent + name + "!");
+        System.out.println("Вы же " + journalist.getJob() + "?");
+        System.out.println("Насколько мы знаем, ваша родная планета - " + journalist.getHomePlanet());
         System.out.println("Нам было бы очень интересно услышать о вашей планете...");
         journalist.setInformationAboutTheEarth(aboutTheEarth); // Journalist receives the information
         if (knowledge != null) {
@@ -21,9 +30,6 @@ public class Journalist {
         }
     }
 
-    private final String aboutTheEarth = information.getInfoAboutTheEarth(); // Information
-    private final String aboutTheMoon = information.getInfoAboutTheMoon();
-
     public void setInformationAboutTheEarth(String inform) { // To receive the information
         this.knowledge = inform;
     }
@@ -31,20 +37,47 @@ public class Journalist {
         return this.aboutTheMoon;
     }
 
-    /*
-    + say(String): String
-    + setInformation(Info)
-    + getInformation(): Info
-    + setTheme(String):
-    + getTheme(): String
-    + setOpponents(String):
-    + getOpponents(): String
-    + setName(String)
-    + getName(): String
-    + setHomePlanet(String)
-    + getHomePlanet(): String
-    + setJob(String)
-    + getJob(): String
-    + hasSeed(): boolean
-     */
+    public boolean isHasSeed() {
+        return hasSeed;
+    }
+
+    public void setTheme(String theme) {
+        this.theme = theme;
+    }
+
+    public String getTheme() {
+        return this.theme;
+    }
+
+    public void setOpponents(String opponent) {
+        this.opponent = opponent;
+    }
+
+    public String getOpponent() {
+        return this.opponent;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setHomePlanet(String homePlanet) {
+        this.homePlanet = homePlanet;
+    }
+
+    public String getHomePlanet() {
+        return homePlanet;
+    }
+
+    public void setJob(String job) {
+        this.job = job;
+    }
+
+    public String getJob() {
+        return this.job;
+    }
 }
