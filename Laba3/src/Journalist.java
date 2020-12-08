@@ -1,4 +1,4 @@
-public class Journalist implements ForJournalist {
+public class Journalist implements ForJournalist extends HomoSapiens {
 
     Info information = new Info(); // Instantiating a class
     Journalist journalist = new Journalist();
