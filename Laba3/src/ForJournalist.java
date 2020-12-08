@@ -1,6 +1,6 @@
 public interface ForJournalist {
 
-    String say(String name);
+    //String say(String name);
     void setInformationAboutTheEarth(String inform);
     String getInformationAboutTheMoon();
     boolean isHasSeed();
@@ -14,7 +14,6 @@ public interface ForJournalist {
     String getHomePlanet();
     void setJob(String job);
     String getJob();
-
     //String eat(Food f);
     //String eat(Drink d);
     //String health();
