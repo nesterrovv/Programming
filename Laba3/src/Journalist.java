@@ -1,36 +1,39 @@
 public class Journalist {
 
     Info information = new Info(); // Instantiating a class
-    Journalist zvezdochka = new Journalist();
-    String knowledge = null;
+    Journalist journalist = new Journalist();
+    private boolean hasSeed = false;
+
+    private String knowledge = null;
 
     public String say(String name) {
-        Journalist zvezdochka = new Journalist();
         System.out.println("Здравствуйте " + name + "!");
         System.out.println("Нам было бы очень интересно услышать о вашей планете...");
-        zvezdochka.setInformationAboutTheEarth(aboutTheEarth); // Journalist receives the information
+        journalist.setInformationAboutTheEarth(aboutTheEarth); // Journalist receives the information
         if (knowledge != null) {
             System.out.println("Ого, а наша планета совсем другая!");
-            zvezdochka.getInformationAboutTheMoon(); // To say about the Moon
+            journalist.getInformationAboutTheMoon(); // To say about the Moon
+            this.hasSeed = true; // The traveler gives the seeds as a gift
             return "Интервью прошло успешно!";
         }
         else {
             return "Журналист не понял интерьвера!";
         }
     }
-    String aboutTheEarth = information.getInfoAboutTheEarth(); // Information
-    String aboutTheMoon = information.getInfoAboutTheMoon();
+
+    private final String aboutTheEarth = information.getInfoAboutTheEarth(); // Information
+    private final String aboutTheMoon = information.getInfoAboutTheMoon();
 
     public void setInformationAboutTheEarth(String inform) { // To receive the information
-        knowledge = inform;
+        this.knowledge = inform;
     }
     public String getInformationAboutTheMoon() { // To take info about herself
-        return aboutTheMoon;
+        return this.aboutTheMoon;
     }
-    
+
     /*
     + say(String): String
-    + setInformatin(Info)
+    + setInformation(Info)
     + getInformation(): Info
     + setTheme(String):
     + getTheme(): String
