@@ -13,7 +13,6 @@ public class Journalist extends HomoSapiens implements ForJournalist {
     private final String aboutTheEarth = information.getInfoAboutTheEarth(); // Information
     private final String aboutTheMoon = information.getInfoAboutTheMoon();
 
-    @Override
     public String say(String name) {
         System.out.println("Здравствуйте " + opponent + name + "!");
         System.out.println("Вы же " + journalist.getJob() + "?");
@@ -34,12 +33,9 @@ public class Journalist extends HomoSapiens implements ForJournalist {
     public void setInformationAboutTheEarth(String inform) { // To receive the information
         this.knowledge = inform;
     }
+
     public String getInformationAboutTheMoon() { // To take info about herself
         return this.aboutTheMoon;
-    }
-
-    public boolean HasSeed() {
-        return hasSeed;
     }
 
     public void setTheme(String theme) {
@@ -57,14 +53,6 @@ public class Journalist extends HomoSapiens implements ForJournalist {
     public String getOpponent() {
         return this.opponent;
     }
-    @Override
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return this.name;
-    }
 
     public void setHomePlanet(String homePlanet) {
         this.homePlanet = homePlanet;
@@ -74,10 +62,27 @@ public class Journalist extends HomoSapiens implements ForJournalist {
         return homePlanet;
     }
 
+    @Override
+    public boolean hasSeed() {
+        return hasSeed;
+    }
+
+    @Override
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String getName() {
+        return this.name;
+    }
+
+    @Override
     public void setJob(String job) {
         this.job = job;
     }
 
+    @Override
     public String getJob() {
         return this.job;
     }
