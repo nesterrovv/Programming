@@ -2,6 +2,7 @@ public class Scientist extends HomoSapiens implements ForScientist {
 
     Scientist scientist = new Scientist();
     Info information = new Info();
+    Seed seed = new Seed();
 
     private String name = "Неизвестный";
     private String job = "Scientist";
@@ -26,17 +27,18 @@ public class Scientist extends HomoSapiens implements ForScientist {
     }
 
     public String explorePlant(Plant p) {
+        
         System.out.println("В НИИ поступили образцы растений с Земли");
         System.out.println("Их нужно посадить в землю и полить.");
-        //plant(p);
-        //water(p);
         System.out.println("Данные загружены.");
         getInformationAboutThePlant(dataAboutThePlant);
+
         if (dataAboutThePlant != null) {
             System.out.println("Ученый " + name + "начал изучать информацию");
             plant(p);
             water(p);
             p.grow();
+            seed.isPlant();
             return "Феноменально!";
         }
         else {
