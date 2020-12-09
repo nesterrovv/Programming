@@ -1,16 +1,13 @@
 public interface ForScientist {
-    /*
-    public String say(String s);
-    setName(String)
-    getName(): String
-    setHomePlanet(String)
-    getHomePlanet(): String
-    setJob(String)
-    getJob(): String
-    getInformation(): Info
-    isHasSeed()
-    explore(Info): String
-    explorePlant(Plant): String
-
-     */
+    String explorePlanet();
+    String explorePlant(Plant p);
+    void getInformationAboutThePlanet(String dataAboutThePlanet);
+    void getInformationAboutThePlant(String dataAboutThePlant);
+    void plant(Plant p);
+    void water(Plant p);
+    void setJob(String job);
+    String getJob();
+    void setName(String name);
+    String getName();
+    boolean hasSeed();
 }
