@@ -1,7 +1,7 @@
 public class Traveler extends HomoSapiens {
 
 
-
+    public void setHomePlanet(Planet p)
 
     @Override
     public boolean hasSeed() {
