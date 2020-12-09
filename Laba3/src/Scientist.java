@@ -59,7 +59,7 @@ public class Scientist extends HomoSapiens implements ForScientist {
     public void water(Plant p) {
         p.getWater(t);
     }
-    
+
     @Override
     public void setJob(String job) {
         this.job = job;
