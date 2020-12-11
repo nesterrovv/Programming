@@ -1,4 +1,4 @@
-public abstract class HomoSapiens {
+public abstract class HomoSapiens{
 
     protected String name;
     protected String homePlanet;
