@@ -17,11 +17,16 @@ public class Traveler extends HomoSapiens implements ForTraveler {
         System.out.println("Путешественник утолил жажду.");
     }
 
-    public String setHealthStatus() {
+    public boolean getHealth() {
+        return this.healthStatus;
+    }
+
+
+    public String getHealthStatus() {
         if (traveler.drinkingStatus && traveler.eatingStatus) {
             traveler.healthStatus = true;
         }
-        if (traveler.healthStatus) {
+        if (this.healthStatus) {
            return  "Путешественник прекрасно себя чувствует!";
         }
         else {
@@ -37,6 +42,10 @@ public class Traveler extends HomoSapiens implements ForTraveler {
 
     public boolean returnPossibility() {
         return this.possibility;
+    }
+
+    public void takeSeed() {
+        this.hasSeed = true;
     }
 
     @Override
