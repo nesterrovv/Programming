@@ -62,7 +62,7 @@ public class Journalist extends HomoSapiens implements ForJournalist {
         return homePlanet;
     }
 
-    @Override
+
     public boolean hasSeed() {
         return hasSeed;
     }
