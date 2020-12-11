@@ -1,3 +1,5 @@
 public final class Food {
-    private String food = "Арбузные семечки";
+    public String getFood() {
+        return "Арбузные семечки";
+    }
 }
