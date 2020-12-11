@@ -15,6 +15,7 @@ public interface ForJournalist {
     String getHomePlanet();
     void setJob(String job);
     String getJob();
+    String toString(Traveler traveler);
     //String eat(Food f);
     //String eat(Drink d);
     //String health();
