@@ -14,14 +14,15 @@ public class Journalist extends HomoSapiens implements ForJournalist {
     private final String aboutTheMoon = information.getInfoAboutTheMoon();
 
     public String say(String name) {
-        System.out.println("Здравствуйте " + opponent + name + "!");
-        System.out.println("Вы же " + journalist.getJob() + "?");
-        System.out.println("Насколько мы знаем, ваша родная планета - " + journalist.getHomePlanet());
+        System.out.println("Здравствуйте " + getOpponent() + name + "!");
+        System.out.println("Вы же " + getJob() + "?");
+        System.out.println("Насколько мы знаем, ваша родная планета - " + getHomePlanet());
         System.out.println("Нам было бы очень интересно услышать о вашей планете...");
+        System.out.println("Тема нашего интервью - " + getTheme());
         journalist.setInformationAboutTheEarth(aboutTheEarth); // Journalist receives the information
         if (knowledge != null) {
             System.out.println("Ого, а наша планета совсем другая!");
-            journalist.getInformationAboutTheMoon(); // To say about the Moon
+            System.out.println(getInformationAboutTheMoon()); // To say about the Moon
             this.hasSeed = true; // The traveler gives the seeds as a gift
             return "Интервью прошло успешно!";
         }
@@ -54,10 +55,12 @@ public class Journalist extends HomoSapiens implements ForJournalist {
         return this.opponent;
     }
 
+    @Override
     public void setHomePlanet(String homePlanet) {
         this.homePlanet = homePlanet;
     }
 
+    @Override
     public String getHomePlanet() {
         return homePlanet;
     }
