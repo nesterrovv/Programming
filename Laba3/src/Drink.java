@@ -1,3 +1,5 @@
 public final class Drink {
-    private String fluid = "Чистая вода";
+    public String getDrink() {
+        return "Чистая вода";
+    }
 }
