@@ -14,15 +14,13 @@ public class Main {
 
         traveler.setName("Незнайка");
         traveler.setJob("Путешественник");
-        traveler.setJob("Путешественник");
+        scientist.
 
-        traveler.setName("Незнайка");
-        traveler.setJob("Путешественник");
-        traveler.setJob("Путешественник");
+        journalist.setName("Звездочка");
+        journalist.setJob("Журналист");
 
-        traveler.setName("Незнайка");
-        traveler.setJob("Путешественник");
-        traveler.setJob("Путешественник");
+        scientist.setName("Аркадий");
+        scientist.setJob("Ученый");
 
         traveler.takeSeed(); // To give the seeds
 
@@ -31,7 +29,7 @@ public class Main {
         flight.start();
 
         if (flight.where() == Location.SPACE) {
-            while (traveler.getHealth() != true) {
+            while (traveler.getHealth()) {
                 traveler.getHealthStatus();
                 traveler.eat(food);
                 traveler.getHealthStatus();
@@ -42,7 +40,10 @@ public class Main {
         flight.changeLocation(Location.MOON);
 
         if (flight.where() == Location.MOON) {
-            //journalist.say
+            journalist.setTheme("О планете");
+            journalist.setOpponents(traveler.getName());
+            journalist.say(traveler.getName());
+
         }
 
 
