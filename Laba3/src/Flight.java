@@ -20,4 +20,8 @@ public class Flight implements Rocket {
     public void setFinishPosition(Location l) {
         this.finishPosition = l;
     }
+
+    public void start() {
+        this.currentPosition = Location.SPACE;
+    }
 }
