@@ -21,4 +21,6 @@ public abstract class HomoSapiens {
     public abstract boolean hasSeed();                      // FOR ALL
     public abstract void setJob(String job);
     public abstract String getJob();
+    public abstract void setHomePlanet(String homePlanet);
+    public abstract String getHomePlanet();
 }
