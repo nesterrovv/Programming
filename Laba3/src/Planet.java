@@ -1,4 +1,5 @@
 public class Planet {
+
     private String name;
     private String type;
     private String size;
