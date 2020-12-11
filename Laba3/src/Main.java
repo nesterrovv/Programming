@@ -14,13 +14,15 @@ public class Main {
 
         traveler.setName("Незнайка");
         traveler.setJob("Путешественник");
-        scientist.
+        traveler.setHomePlanet("Земля");
 
         journalist.setName("Звездочка");
         journalist.setJob("Журналист");
+        journalist.setHomePlanet("Луна");
 
         scientist.setName("Аркадий");
         scientist.setJob("Ученый");
+        scientist.setHomePlanet("Луна");
 
         traveler.takeSeed(); // To give the seeds
 
@@ -43,10 +45,19 @@ public class Main {
             journalist.setTheme("О планете");
             journalist.setOpponents(traveler.getName());
             journalist.say(traveler.getName());
-
+            journalist.setSeed(true);
+            System.out.println("Теперь полученную информацию и эксклюзивные" +
+                               "семена можно передать ученым.");
+            System.out.println("Ученым нужно также передать информацию о путешественнике.");
+            System.out.println(journalist.toString(traveler)); // <------------------------- toString here
+            String data = info.getInfoAboutTheEarth();
+            scientist.setData(data);
+            scientist.explorePlanet();
+            scientist.setSeed(true);
+            scientist.explorePlant(seed);
+            scientist.plant(seed);
+            scientist.water(seed);
+            seed.isPlant();
         }
-
-
-
     }
 }
