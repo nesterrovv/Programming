@@ -9,12 +9,12 @@ public class Traveler extends HomoSapiens implements ForTraveler {
 
     public void eat(Food f) {
         this.eatingStatus = true;
-        System.out.println("Путешественник вкусно покушал.");
+        System.out.println("Путешественник вкусно покушал. Съедено: " + f.getFood());
     }
 
     public void drink(Drink d) {
         this.drinkingStatus = true;
-        System.out.println("Путешественник утолил жажду.");
+        System.out.println("Путешественник утолил жажду. Выпито: " + d.getDrink());
     }
 
     public boolean getHealth() {
