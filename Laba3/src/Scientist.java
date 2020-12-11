@@ -1,6 +1,6 @@
 public class Scientist extends HomoSapiens implements ForScientist {
 
-    Scientist scientist = new Scientist();
+    //Scientist scientist = new Scientist();
     Info information = new Info();
     Seed seed = new Seed();
 
@@ -85,5 +85,23 @@ public class Scientist extends HomoSapiens implements ForScientist {
     @Override
     public boolean hasSeed() {
         return hasSeed;
+    }
+
+    @Override
+    public void setHomePlanet(String homePlanet) {
+        this.homePlanet = homePlanet;
+    }
+
+    @Override
+    public String getHomePlanet() {
+        return this.homePlanet;
+    }
+
+    public void setData(String data) {
+        this.dataAboutThePlanet = data;
+    }
+
+    public void setSeed(boolean seed) {
+        this.hasSeed = seed;
     }
 }
