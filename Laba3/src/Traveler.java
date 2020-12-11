@@ -34,10 +34,10 @@ public class Traveler extends HomoSapiens implements ForTraveler {
         }
     }
 
-    public boolean possibilityToGiveSetInformation() { // call the method after the interview ends
+    public void possibilityToGiveInformation() { // call the method after the interview ends
         System.out.println("Рассказ путешественника успешно передал знания.");
         this.possibility = true;
-        return this.possibility;
+        //return this.possibility;
     }
 
     public boolean returnPossibility() {
@@ -46,6 +46,16 @@ public class Traveler extends HomoSapiens implements ForTraveler {
 
     public void takeSeed() {
         this.hasSeed = true;
+    }
+
+    @Override
+    public void setHomePlanet(String homePlanet) {
+        this.homePlanet = homePlanet;
+    }
+
+    @Override
+    public String getHomePlanet() {
+        return this.homePlanet;
     }
 
     @Override
@@ -72,4 +82,5 @@ public class Traveler extends HomoSapiens implements ForTraveler {
     public String getJob() {
         return this.job;
     }
+
 }
