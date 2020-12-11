@@ -23,7 +23,7 @@ public class Journalist extends HomoSapiens implements ForJournalist {
         if (knowledge != null) {
             System.out.println("Ого, а наша планета совсем другая!");
             System.out.println(getInformationAboutTheMoon()); // To say about the Moon
-            this.hasSeed = true; // The traveler gives the seeds as a gift
+            //this.hasSeed = true; // The traveler gives the seeds as a gift
             return "Интервью прошло успешно!";
         }
         else {
@@ -70,6 +70,10 @@ public class Journalist extends HomoSapiens implements ForJournalist {
         return hasSeed;
     }
 
+    public void setSeed(boolean seed) {
+        this.hasSeed = seed;
+    }
+
     @Override
     public void setName(String name) {
         this.name = name;
@@ -88,5 +92,14 @@ public class Journalist extends HomoSapiens implements ForJournalist {
     @Override
     public String getJob() {
         return this.job;
+    }
+
+    @Override
+    public String toString(Traveler traveler) {
+        return "Person{"
+                + "Имя: '" + traveler.getName() + '\''
+                + ", Работа: " + traveler.getJob()
+                + ", Родная планета: " + traveler.getHomePlanet()
+                + '}';
     }
 }
