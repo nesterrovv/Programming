@@ -1,6 +1,7 @@
 public interface ForJournalist {
 
     //String say(String name);
+    String say(String name);
     void setInformationAboutTheEarth(String inform);
     String getInformationAboutTheMoon();
     boolean hasSeed();
