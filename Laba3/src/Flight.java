@@ -1,4 +1,4 @@
-public class Flight {
+public class Flight implements Rocket {
 
     private Location startPosition;
     private Location finishPosition;
