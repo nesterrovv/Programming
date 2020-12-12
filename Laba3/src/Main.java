@@ -9,7 +9,6 @@ public class Main {
         Food food = new Food();
         Drink drink = new Drink();
         Seed seed = new Seed();
-        //Location location = new Location();
         Flight flight = new Flight();
 
         traveler.setName("Незнайка");
@@ -46,7 +45,7 @@ public class Main {
             journalist.setOpponents(traveler.getName());
             journalist.say(traveler.getName());
             journalist.setSeed(true);
-            System.out.println("Теперь полученную информацию и эксклюзивные" +
+            System.out.println("Теперь полученную информацию и эксклюзивные" + " " +
                                "семена можно передать ученым.");
             System.out.println("Ученым нужно также передать информацию о путешественнике.");
             System.out.println(journalist.toString(traveler)); // <------------------------- toString here
@@ -58,6 +57,21 @@ public class Main {
             scientist.plant(seed);
             scientist.water(seed);
             seed.isPlant();
+            boolean result = seed.equals("ATTGCCGACTAGATAT");
+            if (!result) {
+                System.out.println("Удивительно! У лунных и земных подсолнухов разные ДНК!");
+            }
+            else {
+                System.out.println("Удивительно! У лунных и земных подсолнухов одинаковые ДНК!");
+            }
+            int hashOfMoonDna = scientist.hashCode("ATTGCCGACTAGATAT");
+            int hashOfEarthDna = scientist.hashCode(seed.dna());
+            if (hashOfEarthDna == hashOfMoonDna) {
+                System.out.println("Полимеразная цепная реакция говорит, что ДНК одинаковые!");
+            }
+            else {
+                System.out.println("Полимеразная цепная реакция также говорит, что ДНК разные!");
+            }
         }
     }
 }
