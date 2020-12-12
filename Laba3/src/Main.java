@@ -43,7 +43,7 @@ public class Main {
         if (flight.where() == Location.MOON) {
             journalist.setTheme("О планете");
             journalist.setOpponents(traveler.getName());
-            journalist.say(traveler.getName());
+            journalist.say(traveler);
             journalist.setSeed(true);
             System.out.println("Теперь полученную информацию и эксклюзивные" + " " +
                                "семена можно передать ученым.");
