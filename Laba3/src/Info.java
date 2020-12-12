@@ -11,7 +11,7 @@ public final class Info{
                 "из сероводорода и азота, твердой оболочка имеется, населена лунатиками";
     }
 
-    public String getInfoAboutThePlant() {
-        return "Семена подсолнуха. Растут во влажной почве под солнечным светом";
-    }
+   // public String getInfoAboutThePlant() {
+     //   return "Семена подсолнуха. Растут во влажной почве под солнечным светом";
+    //}
 }
