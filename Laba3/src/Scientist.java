@@ -9,50 +9,53 @@ public class Scientist extends HomoSapiens implements ForScientist {
     private boolean hasSeed = false;
     //private String knowledge = null;
     private String dataAboutThePlanet = null;
-    private String dataAboutThePlant = null;
+    //private String dataAboutThePlant = null;
     private final boolean t = true;
 
-    public String explorePlanet() {
+    public void explorePlanet() {
         System.out.println("В НИИ поступила информация от журналиста");
         System.out.println("Данные скачиваются. Загрузка...");
         System.out.println("Данные загружены.");
-        getInformationAboutThePlanet(dataAboutThePlanet);
+        dataAboutThePlanet = information.getInfoAboutTheEarth();
         if (dataAboutThePlanet != null) {
-            System.out.println("Ученый " + name + "начал изучать информацию");
-            return "Феноменально!";
+            System.out.println(getJob() + getName() + "начал изучать информацию");
+            System.out.println("Феноменально!");
         }
         else {
-            return "Что-то пошло не так! Информацию невозможно понять...";
+            System.out.println("Что-то пошло не так! Информацию невозможно понять...");
         }
     }
 
-    public String explorePlant(Plant p) {
+    public void explorePlant(Plant p) {
         
         System.out.println("В НИИ поступили образцы растений с Земли");
         System.out.println("Их нужно посадить в землю и полить.");
         System.out.println("Данные загружены.");
-        getInformationAboutThePlant(dataAboutThePlant);
+        //dataAboutThePlanet = information.getInfoAboutTheEarth();
+        //dataAboutThePlant = seed.getDescription();
 
-        if (dataAboutThePlant != null) {
-            System.out.println("Ученый " + name + "начал изучать информацию");
+        if (seed.getDescription() != null) {
+            System.out.println(getJob() + getName() + "начал изучать информацию");
             plant(p);
             water(p);
             p.grow();
-            seed.isPlant();
-            return "Феноменально!";
+            System.out.println(seed.isPlant());
+            System.out.println("Феноменально!");
+            //return "Ура!";
         }
         else {
-            return "Что-то пошло не так! Семена не начинают прорастать.";
+            //return "Что-то пошло не так! Семена не начинают прорастать.";
+            System.out.println("Что-то пошло не так! Семена не начинают прорастать.");
         }
     }
 
-    public void getInformationAboutThePlanet(String dataAboutThePlanet) {
-        dataAboutThePlanet = information.getInfoAboutTheEarth();
-    }
+    //public void getInformationAboutThePlanet(String dataAboutThePlanet) {
+    //   dataAboutThePlanet = information.getInfoAboutTheEarth();
+    //}.
 
-    public void getInformationAboutThePlant(String dataAboutThePlant) {
-        dataAboutThePlant = information.getInfoAboutThePlant();
-    }
+    //public void getInformationAboutThePlant(String dataAboutThePlant) {
+      //  dataAboutThePlant = information.getInfoAboutThePlant();
+    //}
 
     public void plant(Plant p) {
         p.getSoil(t);
