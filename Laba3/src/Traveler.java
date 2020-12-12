@@ -5,7 +5,7 @@ public class Traveler extends HomoSapiens implements ForTraveler {
     private boolean healthStatus = false;
     private boolean possibility = false;
 
-    Traveler traveler = new Traveler();
+    //Traveler traveler = new Traveler();
 
     public void eat(Food f) {
         this.eatingStatus = true;
@@ -23,8 +23,8 @@ public class Traveler extends HomoSapiens implements ForTraveler {
 
 
     public String getHealthStatus() {
-        if (traveler.drinkingStatus && traveler.eatingStatus) {
-            traveler.healthStatus = true;
+        if (drinkingStatus && eatingStatus) {
+           this.healthStatus = true;
         }
         if (this.healthStatus) {
            return  "Путешественник прекрасно себя чувствует!";
