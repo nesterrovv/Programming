@@ -1,6 +1,5 @@
 public class Scientist extends HomoSapiens implements ForScientist {
 
-    //Scientist scientist = new Scientist();
     Info information = new Info();
     Seed seed = new Seed();
 
@@ -18,7 +17,7 @@ public class Scientist extends HomoSapiens implements ForScientist {
         System.out.println("Данные загружены.");
         dataAboutThePlanet = information.getInfoAboutTheEarth();
         if (dataAboutThePlanet != null) {
-            System.out.println(getJob() + getName() + "начал изучать информацию");
+            System.out.println(getJob() + getName() + " " + "начал изучать информацию");
             System.out.println("Феноменально!");
         }
         else {
@@ -30,9 +29,7 @@ public class Scientist extends HomoSapiens implements ForScientist {
         
         System.out.println("В НИИ поступили образцы растений с Земли");
         System.out.println("Их нужно посадить в землю и полить.");
-        System.out.println("Данные загружены.");
-        //dataAboutThePlanet = information.getInfoAboutTheEarth();
-        //dataAboutThePlant = seed.getDescription();
+        System.out.println("Ученый получает пакетик с семенами в руки.");
 
         if (seed.getDescription() != null) {
             System.out.println(getJob() + getName() + "начал изучать информацию");
@@ -41,21 +38,12 @@ public class Scientist extends HomoSapiens implements ForScientist {
             p.grow();
             System.out.println(seed.isPlant());
             System.out.println("Феноменально!");
-            //return "Ура!";
         }
         else {
-            //return "Что-то пошло не так! Семена не начинают прорастать.";
             System.out.println("Что-то пошло не так! Семена не начинают прорастать.");
         }
     }
 
-    //public void getInformationAboutThePlanet(String dataAboutThePlanet) {
-    //   dataAboutThePlanet = information.getInfoAboutTheEarth();
-    //}.
-
-    //public void getInformationAboutThePlant(String dataAboutThePlant) {
-      //  dataAboutThePlant = information.getInfoAboutThePlant();
-    //}
 
     public void plant(Plant p) {
         p.getSoil(t);
@@ -106,5 +94,21 @@ public class Scientist extends HomoSapiens implements ForScientist {
 
     public void setSeed(boolean seed) {
         this.hasSeed = seed;
+    }
+
+    @Override
+    public boolean equals(String dna) {
+        String dnaEarth = seed.dna();
+        if (dnaEarth == dna) {
+            return true;
+            }
+        else {
+            return false;
+            }
+        }
+
+    @Override
+    public int hashCode(String dna) {
+        return (int) dna.hashCode();
     }
 }
