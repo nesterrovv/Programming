@@ -3,7 +3,7 @@ public class Flight implements Rocket {
     private Location startPosition;
     private Location finishPosition;
     private Location currentPosition;
-    private boolean inSpace;
+    //private boolean inSpace;
 
     public Location where() {
         return this.currentPosition;
@@ -13,8 +13,7 @@ public class Flight implements Rocket {
         this.currentPosition = l;
     }
 
-    public void setStartPosition(Location l) {
-        this.startPosition = l;
+    public void setStartPosition(Location l) { startPosition = l;
     }
 
     public void setFinishPosition(Location l) {
