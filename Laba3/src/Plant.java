@@ -1,12 +1,12 @@
 public class Plant {
-    private String type;
-    private String homePlanet;
-    private boolean growingStatus;
+   // private String type;
+    //private String homePlanet;
+    //private boolean growingStatus;
     private boolean inSoil;
     private boolean isWatered;
 
     public void grow() {
-        if (inSoil == true && isWatered == true) {
+        if (inSoil && isWatered) {
             System.out.print("Сложившиеся благоприятные условия помогают ");
             System.out.println("растению расти. ");
             System.out.println("Оно растет! Нужно подождать.");
@@ -17,13 +17,13 @@ public class Plant {
         }
     }
 
-    public boolean inSoil() {
-        return this.inSoil;
-    }
+    //public boolean inSoil() {
+    //    return this.inSoil;
+    //}
 
-    public boolean isWatered() {
-        return this.isWatered;
-    }
+    //public boolean isWatered() {
+    //    return this.isWatered;
+    //}
 
     public void getSoil(boolean b) {
         this.inSoil = b;
