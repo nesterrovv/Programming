@@ -5,4 +5,6 @@ public class Seed extends Plant {
     public String dna() {
         return "AATCTTATGATATCAATCG";
     }
+
+    public String getDescription() {return "Арбузные семечки";}
 }
