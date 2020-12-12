@@ -1,10 +1,10 @@
 public interface ForJournalist {
 
     //String say(String name);
-    String say(String name);
+    void say(String name);
     void setInformationAboutTheEarth(String inform);
     String getInformationAboutTheMoon();
-    boolean hasSeed();
+    //boolean hasSeed();
     void setTheme(String theme);
     String getTheme();
     void setOpponents(String opponent);
