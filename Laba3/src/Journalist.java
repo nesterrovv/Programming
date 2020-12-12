@@ -1,7 +1,7 @@
 public class Journalist extends HomoSapiens implements ForJournalist {
 
     Info information = new Info(); // Instantiating a class
-    Journalist journalist = new Journalist();
+    //Journalist journalist = new Journalist();
 
     private boolean hasSeed = false;
     private String theme = "";
@@ -13,21 +13,22 @@ public class Journalist extends HomoSapiens implements ForJournalist {
     private final String aboutTheEarth = information.getInfoAboutTheEarth(); // Information
     private final String aboutTheMoon = information.getInfoAboutTheMoon();
 
-    public String say(String name) {
+    public void say(String name) {
         System.out.println("Здравствуйте " + getOpponent() + name + "!");
+        System.out.println("Я - " + getName());
         System.out.println("Вы же " + getJob() + "?");
         System.out.println("Насколько мы знаем, ваша родная планета - " + getHomePlanet());
         System.out.println("Нам было бы очень интересно услышать о вашей планете...");
         System.out.println("Тема нашего интервью - " + getTheme());
-        journalist.setInformationAboutTheEarth(aboutTheEarth); // Journalist receives the information
+        setInformationAboutTheEarth(aboutTheEarth); // Journalist receives the information
         if (knowledge != null) {
             System.out.println("Ого, а наша планета совсем другая!");
             System.out.println(getInformationAboutTheMoon()); // To say about the Moon
             //this.hasSeed = true; // The traveler gives the seeds as a gift
-            return "Интервью прошло успешно!";
+            //return "Интервью прошло успешно!";
         }
         else {
-            return "Журналист не понял интерьвера!";
+            System.out.println("Журналист не понял интерьвера!");
         }
     }
 
