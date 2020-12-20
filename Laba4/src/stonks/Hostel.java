@@ -1,6 +1,6 @@
 package stonks;
 
-public class Hostel {
+public class Hostel extends Business{
     private final int visitors = (int) (Math.random()*100); // Randomly amount of visitors
 
     public void sell() {
