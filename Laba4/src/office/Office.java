@@ -24,5 +24,9 @@ public class Office {
     public String solution() {
         return "Вмешался козлик и ситуация разрешилась.";
     }
+
+    public void discuss() {
+        System.out.println("Бурные обсуждения!");
+    }
 }
 
