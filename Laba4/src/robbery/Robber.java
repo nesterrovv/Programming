@@ -1,10 +1,10 @@
 package robbery;
 
-public class Robber {
+public class Robber{
     private final String arsenal = "Винтовки, ружья, пистолеты, ручные гранаты, пулеметы";
 
-    public String shot() {
-        return "Бабах! Полицейские укокошены.";
+    public void shot() {
+        System.out.println("Бабах! Полицейские укокошены.");
     }
 
     // num - деньги в банке
