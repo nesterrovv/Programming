@@ -33,6 +33,11 @@ public class Main {
         Hostel hostel = new Hostel();
         hostel.setProfitLevel(100);
 
+        hostel.sell();
+        clinic.sell();
+        sweetShop.sell();
+
+
         Journalist2 journalist2  = new Journalist2();
         journalist2.getInformationAboutTheMoon();
 
