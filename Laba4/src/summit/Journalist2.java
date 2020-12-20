@@ -15,7 +15,7 @@ public class Journalist2 extends HomoSapiens2 implements ForJournalist2 {
     private final String aboutTheEarth = information.getInfoAboutTheEarth(); // Information
     private final String aboutTheMoon = information.getInfoAboutTheMoon();
 
-    public void say(Traveler traveler) {
+    public void say(Traveler2 traveler) {
         System.out.println("Здравствуйте!");
         System.out.println("Я - " + getName() + ", " + getJob());
         //System.out.println("Вы же " + traveler.getJob() + "?");
