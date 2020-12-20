@@ -16,6 +16,7 @@ public class Main {
         journalist.photo();
 
         Traveler traveler = new Traveler();
+        traveler.setName("Мига ");
         traveler.takeInfo();
         traveler.advertise();
         traveler.angry();
