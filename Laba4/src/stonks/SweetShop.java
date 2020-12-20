@@ -1,6 +1,6 @@
 package stonks;
 
-public class SweetShop {
+public class SweetShop extends Business {
 
     private final int visitors = (int) (Math.random()*100000); // Randomly amount of visitors
 
