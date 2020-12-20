@@ -14,7 +14,7 @@ public class Journalist extends HomoSapiens implements ForJournalist {
     private final String aboutTheMoon = information.getInfoAboutTheMoon();
 
     public void say(Traveler traveler) {
-        System.out.println("Здравствуйте " + getOpponent() + "!");
+        System.out.println("Здравствуйте!");
         System.out.println("Я - " + getName() + ", " + getJob());
         //System.out.println("Вы же " + traveler.getJob() + "?");
         System.out.println("Насколько мы знаем, ваша родная планета - " + traveler.getHomePlanet());
