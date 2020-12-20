@@ -1,6 +1,6 @@
 package interview;
 
-public class HomoSapiens2 {
+public class HomoSapiens {
 
     private String name;
     private String job;
