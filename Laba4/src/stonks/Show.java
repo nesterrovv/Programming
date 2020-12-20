@@ -1,6 +1,6 @@
 package stonks;
 
-public class Show {
+public class Show extends Business {
     private final int visitors = (int) (Math.random()*100000); // Randomly amount of watched
 
     public void sell() {
