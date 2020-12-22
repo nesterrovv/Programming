@@ -5,4 +5,8 @@ public class Human {
     public void money(int howMuch) {
         this.amountOfMoney -= 100*howMuch;
     }
+
+    public int getAmountOfMoney() {
+        return this.amountOfMoney;
+    }
 }
