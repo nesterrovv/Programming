@@ -1,56 +1,64 @@
-import summit.*;
-import office.*;
-import robbery.*;
-import stonks.*;
-import interview.*;
+import com.sun.media.jfxmediaimpl.HostUtils;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        Journalist journalist = new Journalist();
-        journalist.setName("Приставака");
-        journalist.setJob("Скандальная журналистка");
-        journalist.setClothes("Узкое зеленое платье и берет");
-        journalist.getAd();
-        journalist.photo();
 
-        Traveler traveler = new Traveler();
-        traveler.setName("Мига ");
-        traveler.takeInfo();
-        traveler.advertise();
-        traveler.angry();
-
+        Traveler firstTraveler = new Traveler("Незнайка", "Скафандр", "Путешетвенник");
+        Traveler secondTraveler = new Traveler("Мига", "Скафандр", "Путешественник");
+        Journalist impudentJournalist = new Journalist("Приставака", "Узкое зеленое " +
+                "платье");
+        CrowdMember crowdMember = new CrowdMember();
         Police police = new Police();
-        police.cancelMeeting();
 
-        Clinic clinic = new Clinic();
-        clinic.setProfitLevel(100);
+        for (int i = 0; i < 11; i++) {
+                crowdMember.ask();
+        }
 
-        SweetShop sweetShop = new SweetShop();
-        sweetShop.setProfitLevel(100);
+        impudentJournalist.push(crowdMember);
+        System.out.println("Он стал жертвой наглого журналиста, пробирающегося к своей цели");
 
-        Hostel hostel = new Hostel();
-        hostel.setProfitLevel(100);
+        secondTraveler.angry();
+        impudentJournalist.ad(firstTraveler);
+        if (firstTraveler.adPossibility()) {
+            firstTraveler.doAd();
+        }
 
-        hostel.sell();
-        clinic.sell();
-        sweetShop.sell();
+        if (firstTraveler.adPossibility() && secondTraveler.checkAngry()) {
+            secondTraveler.kick(impudentJournalist);
+            System.out.println(secondTraveler.getJob() + " отвесил крепкого пинка журналисту");
+        }
 
+        if (impudentJournalist.getKicked()) {
+            System.out.println("А, ой, простите-извините");
+        }
 
-        Journalist2 journalist2  = new Journalist2();
-        journalist2.getInformationAboutTheMoon();
+        police.cancelMeeting(crowdMember);
+        if (crowdMember.isParalyze()) {
+            System.out.println(police.getWeapon() + " - эффективный способ успокоить человека.");
+        }
 
-        Traveler2 traveler2 = new Traveler2();
+        SweetShop sweetShop = new SweetShop(100);
+        //SweetShop sweetShop = new SweetShop((int)(Math.random()*1000));
+        Clinic clinic = new Clinic((int)(Math.random()*1000));
+        Hostel hostel = new Hostel((int)(Math.random()*1000));
+        Show show = new Show((int)(Math.random()*1000));
 
-        System.out.println("Ученые рассказали о космосе и физических процессах на луне.");
+        sweetShop.profit();
+        sweetShop.story();
+        clinic.profit();
+        clinic.story();
+        hostel.profit();
+        hostel.story();
+        show.profit();
+        show.story();
 
-        Office office = new Office();
-        office.sellActions(100);
-        office.discuss();
-
-        Robber robber = new Robber();
-        robber.shot();
+        Human human = new Human();
+        House house = new House();
+        House.Office office = new House.Office();
+        office.sell(human);
+        
 
     }
 }
