@@ -2,6 +2,7 @@ import javax.xml.bind.*;
 import java.io.*;
 import java.time.ZonedDateTime;
 import java.util.*;
+
 import data.*;
 
 public class CollectionManager {
@@ -11,7 +12,7 @@ public class CollectionManager {
     private final Date initializationDate;
     private JAXB serializer;
     private boolean wasStart;
-    protected static HashMap<String, String> commandsInfo;
+    private HashMap<String, String> commandsInfo;
     private JAXBContext jaxbContext;
     private HashSet<Person> newCollection;
 
@@ -321,10 +322,9 @@ public class CollectionManager {
                     new Location(thisXLocation, thisYLocation, thisNameLocation));
 
             persons.add(newPerson);
-        }
-        else {
+        } else {
             System.out.println("Some fields from class Person has not been initialized." + "\n" +
-                               "For whom the error occurred, you can check here");
+                    "For whom the error occurred, you can check here");
             System.out.print("Name was processed correctly: ");
             System.out.println(flagThisName);
             System.out.print("X coordinate was processed correctly: ");
@@ -351,19 +351,16 @@ public class CollectionManager {
     }
 
     public void update_id(int id) {
-        for(Person person : persons) {
+        for (Person person : persons) {
             if (person.getId() == id) {
                 System.out.println("Updating this element of the collection is started.");
-                
-            }
-            else {
+
+            } else {
                 System.out.println("The collection does not contain an item with this ID");
                 System.exit(1);
             }
         }
     }
-
-
 
 
 }
