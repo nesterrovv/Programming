@@ -82,22 +82,26 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1493" height="210" key="GridCell.Tab.0.bottom" timestamp="1614236156989">
+    <state x="574" y="96" key="#com.intellij.ide.util.MemberChooser" timestamp="1614423281757">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1614236156989" />
-    <state width="1493" height="210" key="GridCell.Tab.0.center" timestamp="1614236156989">
+    <state x="574" y="96" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1614423281757" />
+    <state width="1493" height="210" key="GridCell.Tab.0.bottom" timestamp="1614501035760">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1614236156989" />
-    <state width="1493" height="210" key="GridCell.Tab.0.left" timestamp="1614236156989">
+    <state width="1493" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1614501035760" />
+    <state width="1493" height="210" key="GridCell.Tab.0.center" timestamp="1614501035760">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1614236156989" />
-    <state width="1493" height="210" key="GridCell.Tab.0.right" timestamp="1614236156989">
+    <state width="1493" height="210" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1614501035760" />
+    <state width="1493" height="210" key="GridCell.Tab.0.left" timestamp="1614501035760">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1614236156989" />
+    <state width="1493" height="210" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1614501035760" />
+    <state width="1493" height="210" key="GridCell.Tab.0.right" timestamp="1614501035760">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="210" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1614501035760" />
     <state x="209" y="33" key="new project wizard" timestamp="1613058382522">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
