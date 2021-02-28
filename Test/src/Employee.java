@@ -42,4 +42,14 @@ public class Employee
     public void setIncome(double income) {
         this.income = income;
     }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", income=" + income +
+                '}';
+    }
 }
