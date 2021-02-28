@@ -1,6 +1,15 @@
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.*;
 import javax.xml.bind.*;
+import javax.xml.namespace.QName;
+import javax.xml.stream.XMLEventReader;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.events.StartElement;
+import javax.xml.stream.events.XMLEvent;
 
 
 public class Main {
@@ -45,20 +54,43 @@ public class Main {
 
  */
         try {
-            JAXBContext jaxbContext = JAXBContext.newInstance(Employees.class);
-            Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+            final QName qName = new QName("employee");
 
-            //We had written this file in marshalling example
-            Employees emps = (Employees) jaxbUnmarshaller.unmarshal( new File("employees.xml") );
+            InputStream inputStream = new FileInputStream(new File("employees.xml"));
 
-            for(Employee emp : emps.getEmployees())
-            {
-                System.out.println(emp.getId());
-                System.out.println(emp.getFirstName());
+            // create xml event reader for input stream
+            XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
+            XMLEventReader xmlEventReader = xmlInputFactory.createXMLEventReader(inputStream);
+
+            // initialize jaxb
+            JAXBContext context = JAXBContext.newInstance(Employees.class);
+            Unmarshaller unmarshaller = context.createUnmarshaller();
+
+            XMLEvent e = null;
+
+            // loop though the xml stream
+            while( (e = xmlEventReader.peek()) != null ) {
+
+                // check the event is a Document start element
+                if(e.isStartElement() && ((StartElement)e).getName().equals(qName)) {
+
+                    // unmarshall the document
+                    Employee contract = unmarshaller.unmarshal(xmlEventReader, Employee.class).getValue();
+                    System.out.println("Ok");
+                    System.out.println(contract);
+                } else {
+                    xmlEventReader.next();
+                }
             }
         }
         catch (JAXBException jaxbException) {
             System.out.println("XML syntax error");
+        }
+        catch (FileNotFoundException fileNotFoundException) {
+            System.out.println("File not found");
+        }
+        catch (XMLStreamException xmlStreamException) {
+            System.out.println("XML Stream error");
         }
     }
 }
