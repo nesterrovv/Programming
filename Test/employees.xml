@@ -2,20 +2,26 @@
 <employees>
     <employee>
         <id>1</id>
-        <firstName>Lokesh</firstName>
-        <lastName>Gupta</lastName>
+        <firstName>Ivan</firstName>
+        <lastName>Ivanov</lastName>
         <income>100.0</income>
     </employee>
     <employee>
         <id>2</id>
-        <firstName>John</firstName>
-        <lastName>Mclane</lastName>
-        <income>200.0</income>
+        <firstName>Petr</firstName>
+        <lastName>Petrov</lastName>
+        <income>150.0</income>
     </employee>
     <employee>
         <id>3</id>
-        <firstName>Ivan</firstName>
-        <lastName>Nesterov</lastName>
-        <income>19.0</income>
+        <firstName>David</firstName>
+        <lastName>Davidson</lastName>
+        <income>200.0</income>
+    </employee>
+    <employee>
+        <id>4</id>
+        <firstName>Ann</firstName>
+        <lastName>Man</lastName>
+        <income>250.0</income>
     </employee>
 </employees>
