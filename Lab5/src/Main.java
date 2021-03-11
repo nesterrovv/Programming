@@ -8,13 +8,11 @@ import javax.xml.bind.JAXBException;
 public class Main {
 
     public static void main(String[] args) {
+        CollectionManager collectionManager = new CollectionManager();
         try {
-            Person person = new Person();
-            CollectionManager collectionManager = new CollectionManager();
-            collectionManager.help();
-        }
-        catch (IOException ex) {
-            System.out.println("us");
+            collectionManager.add();
+        } catch (NoSuchElementException noSuchElementException) {
+            System.exit(1);
         }
     }
 }
