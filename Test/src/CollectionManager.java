@@ -43,38 +43,4 @@ public class CollectionManager {
         }
     }
 
-    public String unmarshalElement(String name) {
-        try {
-            final QName qName = new QName("employee");
-            InputStream inputStream = new FileInputStream(new File(name));
-            // Create XML event reader for input stream
-            XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
-            XMLEventReader xmlEventReader = xmlInputFactory.createXMLEventReader(inputStream);
-            JAXBContext jaxbContext = JAXBContext.newInstance(Employees.class);
-            Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-            XMLEvent event;
-            System.out.println("start is ok");
-            if ((event = xmlEventReader.peek()) != null) {
-                if (event.isStartElement() && ((StartElement) event).getName().equals(qName)) {
-                    // unmarshalling
-                    Employee contract = unmarshaller.unmarshal(xmlEventReader, Employee.class).getValue();
-                    System.out.println("all is ok");
-                    return contract.toString();
-                     //return "all is ok";
-                } else {
-                    System.out.println("Попалась");
-                    xmlEventReader.next();
-                }
-            } else System.out.println("Беда с башкой");
-        } catch (JAXBException jaxbException) {
-            System.out.println("XML syntax error");
-        } catch (FileNotFoundException fileNotFoundException) {
-            System.out.println("File not found");
-        } catch (XMLStreamException xmlStreamException) {
-            System.out.println("XML Stream exception");
-        }
-        return "Done";
-    }
-
-
 }
