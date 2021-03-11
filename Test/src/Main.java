@@ -19,10 +19,16 @@ public class Main {
         thisEmployees.setEmployees(new ArrayList<>());
 
         CollectionManager collectionManager = new CollectionManager();
-        collectionManager.marshalElement(1, "Ivan", "Ivanov", 100.0, thisEmployees);
-        collectionManager.marshalElement(2, "Petr", "Petrov", 150.0, thisEmployees);
-        collectionManager.marshalElement(3, "David", "Davidson", 200.0, thisEmployees);
-        collectionManager.marshalElement(4, "Ann", "Man", 250.0, thisEmployees);
-        System.out.println(collectionManager.unmarshalElement("employees.xml"));
+        //collectionManager.marshalElement(1, "Ivan", "Ivanov", 100.0, thisEmployees);
+        //collectionManager.marshalElement(2, "Petr", "Petrov", 150.0, thisEmployees);
+        //collectionManager.marshalElement(3, "David", "Davidson", 200.0, thisEmployees);
+        //collectionManager.marshalElement(4, "Ann", "Man", 250.0, thisEmployees);
+        /*
+        for (int i = 0; i < 4; i++){
+            System.out.println(collectionManager.unmarshalElement("employees.xml"));
+            i++;
+        }
+         */
+        collectionManager.unmarshalElement(thisEmployees);
     }
 }
