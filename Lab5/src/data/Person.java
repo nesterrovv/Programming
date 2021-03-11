@@ -13,8 +13,7 @@ public class Person {
     private Country nationality; //Поле не может быть null
     private Location location; //Поле не может быть null
 
-    public Person(int id, String name, Coordinates coordinates, ZonedDateTime creationDate, long height, EyeColor eyeColor, HairColor hairColor, Country nationality, Location location) {
-        this.id = id;
+    public Person(String name, Coordinates coordinates, ZonedDateTime creationDate, long height, EyeColor eyeColor, HairColor hairColor, Country nationality, Location location) {
         this.name = name;
         this.coordinates = coordinates;
         this.creationDate = creationDate;
