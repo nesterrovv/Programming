@@ -9,10 +9,6 @@ public class Main {
 
     public static void main(String[] args) {
         CollectionManager collectionManager = new CollectionManager();
-        try {
             collectionManager.add();
-        } catch (NoSuchElementException noSuchElementException) {
-            System.exit(1);
-        }
     }
 }
