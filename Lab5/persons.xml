@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<persons>
+    <person>
+        <id>1</id>
+        <name>Ivan Ivanov</name>
+        <coordinates>
+            <x>111</x>
+            <y>123.0</y>
+        </coordinates>
+        <creationDate>2021-03-19T22:11:56.919+03:00[Europe/Moscow]</creationDate>
+        <height>321</height>
+        <eyeColor>GREEN</eyeColor>
+        <hairColor>BLUE</hairColor>
+        <nationality>GERMANY</nationality>
+        <location>
+            <x>321</x>
+            <y>123.0</y>
+            <name>Russia</name>
+        </location>
+    </person>
+</persons>
