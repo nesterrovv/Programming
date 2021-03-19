@@ -203,7 +203,13 @@ public class CollectionManager {
     }
 
     public int receiveId() {
-        return (persons.size() + 1);
+        int maxId = 0;
+        for (Person person : persons) {
+            if (person.getId() > maxId) {
+                maxId = person.getId();
+            }
+        }
+        return maxId + 1;
     }
 
     public String receiveName() {
@@ -233,7 +239,9 @@ public class CollectionManager {
             try {
                 System.out.print("Enter X coordinate. Max value is 690. ");
                 Scanner scanner = new Scanner(System.in);
+                System.out.print("Value cannot be empty. ");
                 long x = scanner.nextLong();
+                System.out.print("Value cannot be empty. ");
                 String xx = Long.toString(x);
                 if (x > 690) {
                     System.out.println("Max value is 690. Try again. ");
@@ -541,7 +549,7 @@ public class CollectionManager {
     }
 
     public void add_if_min(Person example) {
-        int counter = 0;int counter = 0;
+        int counter = 0;
         long minimalHeight = Long.MAX_VALUE;
         for (Person person : persons) {
             if (person.getHeight() < minimalHeight) {
@@ -612,9 +620,12 @@ public class CollectionManager {
                 persons.remove(person);
                 Person updatedPerson = new Person(intId, receiveName(), receiveCoordinates(), person.returnCreationDate(),
                         receiveHeight(), receiveEyeColor(), receiveHairColor(), receiveNationality(), receiveLocation());
+                persons.add(updatedPerson);
+
                 return "Element was updated successfully.";
             }
         }
+        System.out.println("Element with this ID is not defined. Try again.");
         return "Element with this ID is not defined.";
     }
 
