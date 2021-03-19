@@ -1,3 +1,5 @@
+import data.Person;
+
 import java.util.*;
 
 public class Commander {
@@ -55,7 +57,11 @@ public class Commander {
                             break;
                         case "add_if_min":
                             System.out.println("Enter characteristics of element, which will be compared with elements in collection.");
-                            collectionManager.add_if_min(collectionManager.add());
+                            collectionManager.add_if_min(new Person(collectionManager.receiveId(), collectionManager.receiveName(),
+                                    collectionManager.receiveCoordinates(), collectionManager.returnDate(),
+                                    collectionManager.receiveHeight(), collectionManager.receiveEyeColor(),
+                                    collectionManager.receiveHairColor(), collectionManager.receiveNationality(),
+                                    collectionManager.receiveLocation()));
                             break;
                         case "remove_greater":
                             System.out.println("Enter characteristics of element, which will be compared with elements in collection.");
@@ -76,11 +82,11 @@ public class Commander {
                             collectionManager.count_greater_than_nationality(collectionManager.receiveNationality());
                             break;
                         default:
-                            System.out.println("Неопознанная команда. Наберите 'help' для справки.");
+                            System.out.println("Unknown command. Write help for help.");
                             break;
                     }
                 } catch (ArrayIndexOutOfBoundsException ex) {
-                    System.out.println("Отсутствует аргумент.");
+                    System.out.println("Argument of command is absent. Write help for help.");
                 }
             }
         }
@@ -97,7 +103,7 @@ public class Commander {
     @Override
     public int hashCode() {
         int result = Objects.hash(collectionManager, userCommand);
-        result = 31 * result + Arrays.hashCode(finalUserCommand);
+        result = 42 * result + Arrays.hashCode(finalUserCommand);
         return result;
     }
 }
