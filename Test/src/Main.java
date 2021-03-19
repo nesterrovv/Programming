@@ -13,22 +13,45 @@ import javax.xml.stream.events.XMLEvent;
 
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws JAXBException {
+        Scanner scanner = new Scanner(System.in);
+        String enter = scanner.next();
+        System.out.println(enter);
+/*
+        //Initialize the employees list
+        Employees employees = new Employees();
+        employees.setEmployees(new ArrayList<Employee>());
 
-        Employees thisEmployees = new Employees();
-        thisEmployees.setEmployees(new ArrayList<>());
+        //Create two employees
 
-        CollectionManager collectionManager = new CollectionManager();
-        //collectionManager.marshalElement(1, "Ivan", "Ivanov", 100.0, thisEmployees);
-        //collectionManager.marshalElement(2, "Petr", "Petrov", 150.0, thisEmployees);
-        //collectionManager.marshalElement(3, "David", "Davidson", 200.0, thisEmployees);
-        //collectionManager.marshalElement(4, "Ann", "Man", 250.0, thisEmployees);
-        /*
-        for (int i = 0; i < 4; i++){
-            System.out.println(collectionManager.unmarshalElement("employees.xml"));
-            i++;
-        }
-         */
-        collectionManager.unmarshalElement(thisEmployees);
+        Employee emp1 = new Employee();
+        emp1.setId(1);
+        emp1.setFirstName("Lokesh");
+        emp1.setLastName("Gupta");
+        emp1.setIncome(100.0);
+
+        Employee emp2 = new Employee();
+        emp2.setId(2);
+        emp2.setFirstName("John");
+        emp2.setLastName("Mclane");
+        emp2.setIncome(200.0);
+
+        //Add the employees in list
+        employees.getEmployees().add(emp1);
+        employees.getEmployees().add(emp2);
+        JAXBContext jaxbContext = JAXBContext.newInstance(Employees.class);
+        Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+
+        jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+        //Marshal the employees list in console
+        jaxbMarshaller.marshal(employees, System.out);
+
+        //Marshal the employees list in file
+        jaxbMarshaller.marshal(employees, new File("C:\\Users\\Иван Нестеров\\Documents\\GitHub\\Programming\\Test\\employees.xml"));
+
+ */
     }
+
+
 }
