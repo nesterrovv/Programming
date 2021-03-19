@@ -541,7 +541,7 @@ public class CollectionManager {
     }
 
     public void add_if_min(Person example) {
-        int counter = 0;
+        int counter = 0;int counter = 0;
         long minimalHeight = Long.MAX_VALUE;
         for (Person person : persons) {
             if (person.getHeight() < minimalHeight) {
