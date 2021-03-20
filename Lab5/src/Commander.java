@@ -20,6 +20,7 @@ public class Commander {
         try {
             try (Scanner commandReader = new Scanner(System.in)) {
                 while (!userCommand.equals("exit")) {
+                    System.out.print("Enter a command: ");
                     userCommand = commandReader.nextLine();
                     finalUserCommand = userCommand.trim().toLowerCase().split(" ", 2);
                     try {
