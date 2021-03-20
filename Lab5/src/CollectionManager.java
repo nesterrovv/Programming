@@ -652,80 +652,126 @@ public class CollectionManager {
     public void execute_script(String nameOfFile) {
         try {
             System.out.println("WARNING. To avoid recursion, your file cannot contain execute script commands.");
-            System.out.print("Enter full path to file with executable script here: ");
-            BufferedReader reader = new BufferedReader(new FileReader(nameOfFile));
-            /*
-            String line = null;
-            StringBuilder stringBuilder = new StringBuilder();
-            String ls = System.getProperty("line.separator");
-            while ((line = reader.readLine()) != null) {
-                stringBuilder.append(line);
-                stringBuilder.append(ls);
-            }
-
-            stringBuilder.deleteCharAt(stringBuilder.length() - 1);
-*/
-            String[] line = null;
-            try {
-                while ((line[0] = reader.readLine()) != null) {
-                    switch (line[0]) {
-                        case "help":
-                            help();
-                            break;
-                        case "info":
-                            info();
-                            break;
-                        case "show":
-                            show();
-                            break;
-                        case "add":
-                            add();
-                            break;
-                        case "update_by_id":
-                            update_by_id(String.valueOf(receiveId()));
-                            break;
-                        case "remove_by_id":
-                            remove_by_id(String.valueOf(receiveId()));
-                            break;
-                        case "clear":
-                            clear();
-                            break;
-                        case "save":
-                            save();
-                            break;
-                        case "execute_script":
-                            System.out.println("This script cannot to contain this command.");
-                            break;
-                        case "exit":
-                            exit();
-                        case "add_if_min":
-                            add_if_min(new Person(receiveId(), receiveName(), receiveCoordinates(), returnDate(),
-                                    receiveHeight(), receiveEyeColor(), receiveHairColor(), receiveNationality(), receiveLocation()));
-                            break;
-                        case "remove_greater":
-                            remove_greater(receiveHeight());
-                            break;
-                        case "remove_lower":
-                            remove_lower(receiveHeight());
-                            break;
-                        case "sum_of_height":
-                            sum_of_height();
-                            break;
-                        case "group_counting_by_nationality":
-                            group_counting_by_nationality();
-                            break;
-                        case "count_greater_than_nationality":
-                            count_greater_than_nationality(receiveNationality());
-                            break;
-                        default:
-                            reader.readLine();
-                            break;
-                    }
+            BufferedReader reader = new BufferedReader(new FileReader(new File(nameOfFile)));
+            String line = "";
+            while((line = reader.readLine()) != null) {
+                switch (line) {
+                    case "help":
+                        help();
+                        break;
+                    case "info":
+                        info();
+                        break;
+                    case "show":
+                        show();
+                        break;
+                    case "add":
+                        add();
+                        break;
+                    case "update_by_id":
+                        update_by_id(String.valueOf(receiveId()));
+                        break;
+                    case "remove_by_id":
+                        remove_by_id(String.valueOf(receiveId()));
+                        break;
+                    case "clear":
+                        clear();
+                        break;
+                    case "save":
+                        save();
+                        break;
+                    case "execute_script":
+                        System.out.println("This script cannot to contain this command.");
+                        break;
+                    case "exit":
+                        exit();
+                    case "add_if_min":
+                        add_if_min(new Person(receiveId(), receiveName(), receiveCoordinates(), returnDate(),
+                                receiveHeight(), receiveEyeColor(), receiveHairColor(), receiveNationality(), receiveLocation()));
+                        break;
+                    case "remove_greater":
+                        remove_greater(receiveHeight());
+                        break;
+                    case "remove_lower":
+                        remove_lower(receiveHeight());
+                        break;
+                    case "sum_of_height":
+                        sum_of_height();
+                        break;
+                    case "group_counting_by_nationality":
+                        group_counting_by_nationality();
+                        break;
+                    case "count_greater_than_nationality":
+                        count_greater_than_nationality(receiveNationality());
+                        break;
+                    default:
+                        reader.readLine();
+                        break;
                 }
-            } catch (NullPointerException nullPointerException) {
-                System.out.println("File is empty. Try again.");
             }
             reader.close();
+            /*
+            stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+            System.out.println("до цикла работает");
+            System.out.println(reader.readLine());
+            while (reader.readLine() != null) {
+                System.out.println("работает");
+                switch (reader.readLine()) {
+                    case "help":
+                        help();
+                        break;
+                    case "info":
+                        info();
+                        break;
+                    case "show":
+                        show();
+                        break;
+                    case "add":
+                        add();
+                        break;
+                    case "update_by_id":
+                        update_by_id(String.valueOf(receiveId()));
+                        break;
+                    case "remove_by_id":
+                        remove_by_id(String.valueOf(receiveId()));
+                        break;
+                    case "clear":
+                        clear();
+                        break;
+                    case "save":
+                        save();
+                        break;
+                    case "execute_script":
+                        System.out.println("This script cannot to contain this command.");
+                        break;
+                    case "exit":
+                        exit();
+                    case "add_if_min":
+                        add_if_min(new Person(receiveId(), receiveName(), receiveCoordinates(), returnDate(),
+                                receiveHeight(), receiveEyeColor(), receiveHairColor(), receiveNationality(), receiveLocation()));
+                        break;
+                    case "remove_greater":
+                        remove_greater(receiveHeight());
+                        break;
+                    case "remove_lower":
+                        remove_lower(receiveHeight());
+                        break;
+                    case "sum_of_height":
+                        sum_of_height();
+                        break;
+                    case "group_counting_by_nationality":
+                        group_counting_by_nationality();
+                        break;
+                    case "count_greater_than_nationality":
+                        count_greater_than_nationality(receiveNationality());
+                        break;
+                    default:
+                        reader.readLine();
+                        break;
+                }
+            }
+
+             */
         } catch (FileNotFoundException fileNotFoundException) {
             System.out.println("File not found. Try again.");
         } catch (IOException ioException) {
