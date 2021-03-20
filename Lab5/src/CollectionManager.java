@@ -16,12 +16,11 @@ import data.*;
 
 public class CollectionManager {
 
-    private HashSet<data.Person> persons;
+    private final HashSet<data.Person> persons;
     private File xmlCollection;
     private Date initializationDate;
     private boolean wasStart;
     private final HashMap<String, String> commandsInfo;
-    private int[] ids;
     String hash;
 
     {
@@ -32,22 +31,30 @@ public class CollectionManager {
         commandsInfo = new HashMap<>();
         commandsInfo.put("help", " - display help for available commands");
         commandsInfo.put("info", " - print all elements in string representation to standard output");
-        commandsInfo.put("add {element}", " - add new element to the collection");
-        commandsInfo.put("update_by_id id {элемент}", " - update the element`s value, whose ID is equal to the given");
-        commandsInfo.put("remove_by_id", " - remove an element from the collection by its ID");
+        commandsInfo.put("add", " - add new element to the collection");
+        commandsInfo.put("update_by_id id", " - update the element`s value, whose ID is equal to the given." +
+                " You should to enter ID after entering a command.");
+        commandsInfo.put("remove_by_id id", " - remove an element from the collection by its ID." +
+                " You should to enter ID after entering a command.");
         commandsInfo.put("clear", " - clear the collection");
         commandsInfo.put("save", " - save the collection to file");
-        commandsInfo.put("execute_script filename", " - read and execute a script from specified file");
+        commandsInfo.put("execute_script filename", " - read and execute a script from specified file." +
+                " You should to enter path to file after entering a command.");
         commandsInfo.put("exit", " - end the program (without saving to file)");
-        commandsInfo.put("add_if_min {element}", " - add new element to the collection, if it`s value less, " +
-                "than smallest element of this collection");
-        commandsInfo.put("remove_greater {element}", " - remove from the collection all elements greater than the specified one");
-        commandsInfo.put("remove_lower {element}", " - remove from the collection all elements less than the specified one");
-        commandsInfo.put("sum_of_height", " - print the sum of the values of the height field for all elements of the collection");
+        commandsInfo.put("add_if_min", " - add new element to the collection, if it`s value less, " +
+                "than smallest element of this collection. You should to enter characteristics of" +
+                " comparing element after entering a command.");
+        commandsInfo.put("remove_greater", " - remove from the collection all elements greater than the specified" +
+                " one. You should to enter a height which will be comparing with element`s heights.");
+        commandsInfo.put("remove_lower", " - remove from the collection all elements less than the specified one." +
+                " You should to enter a height which will be comparing with element`s heights.");
+        commandsInfo.put("sum_of_height", " - print the sum of the values of the height field for all elements" +
+                " of the collection");
         commandsInfo.put("group_counting_by_nationality", " - group collection items by field value " +
                 "nationality, display the number of items in each group");
-        commandsInfo.put("count_greater_then_nationality nationality", " - print the number of elements, value" +
-                "whose nationality fields are greater than the given");
+        commandsInfo.put("count_greater_than_nationality nationality", " - print the number of elements, value" +
+                "whose nationality fields are greater than the given. You should to enter a nationality which will" +
+                " be comparing with element`s heights.");
     }
 
     // Constructor for checking a path to file existence
@@ -81,14 +88,13 @@ public class CollectionManager {
                                 JAXBContext context = JAXBContext.newInstance(Person.class);
                                 Unmarshaller unmarshaller = context.createUnmarshaller();
 
-                                XMLEvent e = null;
+                                String checker = "";
+                                XMLEvent e;
                                 // loop though the xml stream
                                 int counter = 0;
                                 while ((e = xmlEventReader.peek()) != null) {
-
                                     // check the event is a Document start element
                                     if (e.isStartElement() && ((StartElement) e).getName().equals(qName)) {
-
                                         // unmarshall the document
                                         Person unmarshalledPerson = unmarshaller.unmarshal(xmlEventReader, Person.class).getValue();
                                         persons.add(unmarshalledPerson);
@@ -97,32 +103,29 @@ public class CollectionManager {
                                         xmlEventReader.next();
                                     }
                                 }
-                                String checker = "";
                                 try {
-                                    File myfile = new File("hash.txt");
-                                    //создаем объект FileReader для объекта File
-                                    FileReader fr = new FileReader(myfile);
-                                    //создаем BufferedReader с существующего FileReader для построчного считывания
+                                    File myFile = new File("hash.txt");
+                                    FileReader fr = new FileReader(myFile);
                                     BufferedReader reader = new BufferedReader(fr);
-                                    String line = reader.readLine();
-                                    checker = line;
+                                    checker = reader.readLine();
                                     reader.close();
                                 } catch (FileNotFoundException fileNotFoundException) {
-                                    System.out.println("File saving critical error.");
+                                    System.out.println("File not found. Try again.");
                                 } catch (IOException ioException) {
                                     System.out.println("File saving critical error.");
                                 }
-                                System.out.println(org.apache.commons.codec.digest.DigestUtils.md5Hex(Files.newInputStream(Paths.get(pathToFile))));
                                 if (org.apache.commons.codec.digest.DigestUtils.md5Hex(Files.newInputStream(Paths.get(pathToFile))).equals(checker)) {
-                                    System.out.println("Collection was loaded successfully. " + counter + " elements has been loaded.");
+                                    System.out.println("Collection was loaded successfully. " + counter +
+                                            " elements has been loaded.");
                                 } else {
-                                    System.out.println("You changed the file artificially, without using a collection manager.");
+                                    System.out.println("You changed the file artificially, without using a" +
+                                            " collection manager.");
                                     System.out.println(" The file is damaged and the program cannot work.");
-                                    System.out.println("Contact support (https://t.me/nesterrovv) to resolve this issue");
-                                    System.exit(666);
+                                    System.out.println(" The file is damaged and the program cannot work.");
+                                    System.out.println("Contact support (https://t.me/nesterrovv) to resolve" +
+                                            " this issue");
+                                    System.exit(1);
                                 }
-
-
                             } catch (JAXBException jaxbException) {
                                 System.out.println("XML syntax error.");
                             } catch (FileNotFoundException fileNotFoundException) {
@@ -156,12 +159,9 @@ public class CollectionManager {
     }
 
     public boolean checkFile() {
-        Scanner scanner = new Scanner(System.in);
         if (xmlCollection.exists()) {
             if (xmlCollection.canRead()) {
-                if (xmlCollection.canWrite()) {
-                    return true;
-                }
+                return xmlCollection.canWrite();
             }
         } else {
             if (!xmlCollection.exists()) {
@@ -182,7 +182,6 @@ public class CollectionManager {
         return false;
     }
 
-
     public void help() {
         for (Map.Entry<String, String> entry : commandsInfo.entrySet()) {
             System.out.println(entry.getKey() + entry.getValue());
@@ -192,7 +191,7 @@ public class CollectionManager {
     public void info() {
         System.out.println("Type of collection: java.util.HashSet");
         System.out.println("Initialization date: " + initializationDate);
-        System.out.println("Size of the collection: " + persons.size());
+        System.out.println("Amount of elements in the collection: " + persons.size());
         System.out.println("Collection manager is active: " + wasStart);
     }
 
@@ -215,10 +214,9 @@ public class CollectionManager {
     public String receiveName() {
         for ( ; ; ) {
             try {
-                //boolean stopFlag = false;
+                System.out.println("Attention! If name will be so long, you may lose some part of this information");
                 Scanner scanner = new Scanner(System.in);
                 System.out.print("Enter a name: ");
-                //scanner.hasNext();
                 String name = scanner.nextLine().trim();
                 if (name.equals("")) {
                     System.out.println("This value cannot be empty. Try again");
@@ -247,14 +245,13 @@ public class CollectionManager {
                     System.out.println("Max value is 690. Try again. ");
                     continue;
                 }
-                if (xx.equals(null) || xx.equals("") ) {
+                if (xx.equals("") ) {
                     System.out.println("This value cannot be empty. Try again. ");
                     continue;
                 }
                 return x;
             } catch (InputMismatchException inputMismatchException) {
                 System.out.println("This value must be a long-type number. Try again. ");
-                continue;
             } catch (NoSuchElementException noSuchElementException) {
                 System.out.println("Program was stopped successfully. ");
                 System.exit(1);
@@ -267,12 +264,7 @@ public class CollectionManager {
             try {
                 System.out.print("Enter Y coordinate. This value cannot be empty. ");
                 Scanner scanner = new Scanner(System.in);
-                Float y = new Float(scanner.nextDouble());
-                if (y.equals("")) {
-                    System.out.println("This value cannot be empty. ");
-                    continue;
-                }
-                return y;
+                return scanner.nextFloat();
             } catch (InputMismatchException inputMismatchException) {
                 System.out.println("This value must be a float-type number. Try again. ");
             } catch (NoSuchElementException noSuchElementException) {
@@ -311,8 +303,7 @@ public class CollectionManager {
             try {
                 System.out.print("Enter X coordinate of location. ");
                 Scanner scanner = new Scanner(System.in);
-                long xLocation = scanner.nextLong();
-                return xLocation;
+                return scanner.nextLong();
             } catch (InputMismatchException inputMismatchException) {
                 System.out.println("This value must be a long-type number. Try again. ");
             } catch (NoSuchElementException noSuchElementException) {
@@ -327,12 +318,7 @@ public class CollectionManager {
             try {
                 System.out.print("Enter Y coordinate of location: ");
                 Scanner scanner = new Scanner(System.in);
-                Double yLocation = new Double(scanner.nextDouble());
-                if (yLocation.equals("") || yLocation.equals("\n")) {
-                    System.out.println("Value cannot be empty. Try again. ");
-                } else {
-                    return yLocation;
-                }
+                return scanner.nextDouble();
             } catch (InputMismatchException inputMismatchException) {
                 System.out.println("This value must be a long-type number. Try again. ");
             } catch (NoSuchElementException noSuchElementException) {
@@ -345,6 +331,7 @@ public class CollectionManager {
     public String receiveNameLocation() {
         for ( ; ; ) {
             try {
+                System.out.println("Attention! If name will be so long, you may lose some part of this information");
                 Scanner scanner = new Scanner(System.in);
                 System.out.print("Enter a name of location: ");
                 String nameLocation = scanner.nextLine().trim();
@@ -446,63 +433,26 @@ public class CollectionManager {
         }
     }
 
-    public Person add() {
+    public void add() {
         Person newPerson = new Person(receiveId(), receiveName(), receiveCoordinates(), returnDate(),
                 receiveHeight(), receiveEyeColor(), receiveHairColor(), receiveNationality(), receiveLocation());
         persons.add(newPerson);
         if (checkFile()) {
-            System.out.println("Element was adding successfully. ");
-            return newPerson;
+            System.out.println("Element was added successfully. You should to save changes into a file. ");
         } else {
             System.out.println("Resolve the indicated problem. Otherwise, the results of your work will not be saved. ");
-            return null;
         }
     }
 
-
     public void save() {
         try {
-            //Initialize the persons list
-            /*
-            Persons persons = new Persons();
-            persons.setPersons(new ArrayList<Person>());
-            //Create two persons
-            long x = 12;
-            Float y = new Float(12);
-            long xx = 123;
-            Float yy = new Float(123);
-            long xxx = 21;
-            Double yyy = new Double(21);
-            long xxxx = 321;
-            Double yyyy = new Double(321);
-            Person person1 = new Person(1, "Ivan Ivanov", new Coordinates(x, y), returnDate(), 175, EyeColor.RED, HairColor.BLUE, Country.NORTH_KOREA, new Location(xx, yyy, "Russia"));
-            Person person2 = new Person(2, "Petr Petrov", new Coordinates(xxx, yy), returnDate(), 185, EyeColor.BLUE, HairColor.YELLOW, Country.GERMANY, new Location(xxxx, yyyy, "USA"));
-            Person person3 = add();
-            //Add the employees in list
-            persons.getPersons().add(person1);
-            persons.getPersons().add(person2);
-            persons.getPersons().add(person3);
-            System.out.println("Пока нормально все");
-             */
-            //List<Person> newPersons = persons.toArray();
-            //Persons persons = new Persons();
-            //ArrayList<Person> persons2 = persons.toArray();
-            //persons.setPersons(new ArrayList<Person>());
-            System.out.println("=========================================================================================================================");
             Persons newPersons = new Persons();
-            newPersons.setPersons(new ArrayList<Person>(persons));
-            System.out.println("=========================================================================================================================");
+            newPersons.setPersons(new ArrayList<>(persons));
             JAXBContext jaxbContext = JAXBContext.newInstance(Persons.class);
-            System.out.println("Пока нормально все");
             Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
             jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-            //Marshal the persons list in console
-            System.out.println("Тут тоже все хорошо");
-            jaxbMarshaller.marshal(newPersons, System.out);
-            System.out.println("ПОКА ЕЩЕ ВСЕ ХОРОШО");
             //Marshal the persons list in file
             jaxbMarshaller.marshal(newPersons, xmlCollection);
-            System.out.println("ПОКА ЕЩЕ ВСЕ ХОРОШО!!!!!!!!");
             hash = hashCollection("persons.xml");
             try {
                 FileWriter fileWriter = new FileWriter("hash.txt", false);
@@ -511,7 +461,6 @@ public class CollectionManager {
             } catch (IOException ioException) {
                 System.out.println("File saving critical error.");
             }
-
         }
         catch (JAXBException jaxbException) {
             System.out.println("XML syntax error. Try again. :-(");
@@ -549,7 +498,6 @@ public class CollectionManager {
     }
 
     public void add_if_min(Person example) {
-        int counter = 0;
         long minimalHeight = Long.MAX_VALUE;
         for (Person person : persons) {
             if (person.getHeight() < minimalHeight) {
@@ -593,26 +541,26 @@ public class CollectionManager {
         int exampleHashcode = country.hashCode();
         int counter = 0;
         for (Person person : persons) {
-            if ((person.getNationality()).hashCode() > exampleHashcode) { ;
+            if ((person.getNationality()).hashCode() > exampleHashcode) {
                 counter += 1;
             }
         }
         System.out.println("Operation was finished successfully. " + counter + " elements.");
     }
 
-    public String remove_by_id(String id) {
+    public void remove_by_id(String id) {
         for (Person person : persons) {
             int intId = person.getId();
             String strId = String.valueOf(intId);
             if (strId.equals(id)) {
                 persons.remove(person);
-                return "Element was deleted successfully.";
+                System.out.println("Element was deleted successfully.");
             }
         }
-        return "Element with this ID is not defined.";
+        System.out.println("Element with this ID is not defined.");
     }
 
-    public String update_by_id(String id) {
+    public void update_by_id(String id) {
         for (Person person : persons) {
             int intId = person.getId();
             String strId = String.valueOf(intId);
@@ -621,12 +569,11 @@ public class CollectionManager {
                 Person updatedPerson = new Person(intId, receiveName(), receiveCoordinates(), person.returnCreationDate(),
                         receiveHeight(), receiveEyeColor(), receiveHairColor(), receiveNationality(), receiveLocation());
                 persons.add(updatedPerson);
-
-                return "Element was updated successfully.";
+                System.out.println("Element was updated successfully.");
             }
         }
         System.out.println("Element with this ID is not defined. Try again.");
-        return "Element with this ID is not defined.";
+        System.out.println("Element with this ID is not defined.");
     }
 
     public void group_counting_by_nationality() {
@@ -653,9 +600,12 @@ public class CollectionManager {
         try {
             System.out.println("WARNING. To avoid recursion, your file cannot contain execute script commands.");
             BufferedReader reader = new BufferedReader(new FileReader(new File(nameOfFile)));
-            String line = "";
-            while((line = reader.readLine()) != null) {
-                switch (line) {
+            //private String userCommand;
+            String[] finalUserCommand;
+            String command;
+            while((command = reader.readLine()) != null) {
+                finalUserCommand = command.trim().toLowerCase().split(" ", 2);
+                switch (finalUserCommand[0]) {
                     case "help":
                         help();
                         break;
@@ -669,10 +619,10 @@ public class CollectionManager {
                         add();
                         break;
                     case "update_by_id":
-                        update_by_id(String.valueOf(receiveId()));
+                        update_by_id(finalUserCommand[1]);
                         break;
                     case "remove_by_id":
-                        remove_by_id(String.valueOf(receiveId()));
+                        remove_by_id(finalUserCommand[1]);
                         break;
                     case "clear":
                         clear();
@@ -687,7 +637,8 @@ public class CollectionManager {
                         exit();
                     case "add_if_min":
                         add_if_min(new Person(receiveId(), receiveName(), receiveCoordinates(), returnDate(),
-                                receiveHeight(), receiveEyeColor(), receiveHairColor(), receiveNationality(), receiveLocation()));
+                                receiveHeight(), receiveEyeColor(), receiveHairColor(), receiveNationality(),
+                                receiveLocation()));
                         break;
                     case "remove_greater":
                         remove_greater(receiveHeight());
@@ -708,70 +659,10 @@ public class CollectionManager {
                         reader.readLine();
                         break;
                 }
+                System.out.println("Command is ended.");
             }
+            System.out.println("Commands are ended.");
             reader.close();
-            /*
-            stringBuilder.deleteCharAt(stringBuilder.length() - 1);
-            System.out.println("до цикла работает");
-            System.out.println(reader.readLine());
-            while (reader.readLine() != null) {
-                System.out.println("работает");
-                switch (reader.readLine()) {
-                    case "help":
-                        help();
-                        break;
-                    case "info":
-                        info();
-                        break;
-                    case "show":
-                        show();
-                        break;
-                    case "add":
-                        add();
-                        break;
-                    case "update_by_id":
-                        update_by_id(String.valueOf(receiveId()));
-                        break;
-                    case "remove_by_id":
-                        remove_by_id(String.valueOf(receiveId()));
-                        break;
-                    case "clear":
-                        clear();
-                        break;
-                    case "save":
-                        save();
-                        break;
-                    case "execute_script":
-                        System.out.println("This script cannot to contain this command.");
-                        break;
-                    case "exit":
-                        exit();
-                    case "add_if_min":
-                        add_if_min(new Person(receiveId(), receiveName(), receiveCoordinates(), returnDate(),
-                                receiveHeight(), receiveEyeColor(), receiveHairColor(), receiveNationality(), receiveLocation()));
-                        break;
-                    case "remove_greater":
-                        remove_greater(receiveHeight());
-                        break;
-                    case "remove_lower":
-                        remove_lower(receiveHeight());
-                        break;
-                    case "sum_of_height":
-                        sum_of_height();
-                        break;
-                    case "group_counting_by_nationality":
-                        group_counting_by_nationality();
-                        break;
-                    case "count_greater_than_nationality":
-                        count_greater_than_nationality(receiveNationality());
-                        break;
-                    default:
-                        reader.readLine();
-                        break;
-                }
-            }
-
-             */
         } catch (FileNotFoundException fileNotFoundException) {
             System.out.println("File not found. Try again.");
         } catch (IOException ioException) {
@@ -782,5 +673,4 @@ public class CollectionManager {
     public String returnDate() {
         return ZonedDateTime.now().toString();
     }
-
 }
