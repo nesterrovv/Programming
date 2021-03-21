@@ -14,20 +14,31 @@ import java.util.concurrent.TimeUnit;
 
 import data.*;
 
+/**
+ * @author Ivan Nesterov
+ * @version 1.0
+ * Class which realised user`s commands
+ */
 public class CollectionManager {
 
+    /** HashSet collection for keeping a collection as java-object */
     private final HashSet<data.Person> persons;
+    /** Field used for saving collection into xml file */
     private File xmlCollection;
+    /** Field for saving date of initialization thw collection */
     private Date initializationDate;
+    /** Field for checking the program was started */
     private boolean wasStart;
+    /** HashMap collection for making a manual */
     private final HashMap<String, String> commandsInfo;
+    /** The field for storing the hash in order to check that the file has not been artificially modified */
     String hash;
 
     {
         wasStart = false;
         persons = new HashSet<>();
 
-        // making a manual
+        // Making a manual
         commandsInfo = new HashMap<>();
         commandsInfo.put("help", " - display help for available commands");
         commandsInfo.put("info", " - print all elements in string representation to standard output");
@@ -57,7 +68,7 @@ public class CollectionManager {
                 " be comparing with element`s heights.");
     }
 
-    // Constructor for checking a path to file existence
+    // Constructor for checking a path to file existence and file readiness to work
     public CollectionManager() {
         Scanner scanner = new Scanner(System.in);
         try {
@@ -90,8 +101,9 @@ public class CollectionManager {
 
                                 String checker = "";
                                 XMLEvent e;
-                                // loop though the xml stream
+                                // Field for counting amount of downloaded elements
                                 int counter = 0;
+                                // Loop for unmarshalling the collection
                                 while ((e = xmlEventReader.peek()) != null) {
                                     // check the event is a Document start element
                                     if (e.isStartElement() && ((StartElement) e).getName().equals(qName)) {
@@ -103,6 +115,9 @@ public class CollectionManager {
                                         xmlEventReader.next();
                                     }
                                 }
+                                /*
+                                 Checking that the file has not been modified.
+                                 Implemented by comparing the current hash of the file with the previous one */
                                 try {
                                     File myFile = new File("hash.txt");
                                     FileReader fr = new FileReader(myFile);
@@ -158,6 +173,10 @@ public class CollectionManager {
         }
     }
 
+    /**
+     * Check file for readiness to work
+     * @return readiness status
+     * */
     public boolean checkFile() {
         if (xmlCollection.exists()) {
             if (xmlCollection.canRead()) {
@@ -182,12 +201,14 @@ public class CollectionManager {
         return false;
     }
 
+    /** Method for printing manual for user */
     public void help() {
         for (Map.Entry<String, String> entry : commandsInfo.entrySet()) {
             System.out.println(entry.getKey() + entry.getValue());
         }
     }
 
+    /** Method for printing information about the collection */
     public void info() {
         System.out.println("Type of collection: java.util.HashSet");
         System.out.println("Initialization date: " + initializationDate);
@@ -195,12 +216,17 @@ public class CollectionManager {
         System.out.println("Collection manager is active: " + wasStart);
     }
 
+    /** Method for printing collection elements into the string representation */
     public void show() {
         for (Person person : persons) {
             System.out.println(person.toString() + "\n");
         }
     }
 
+    /**
+     * Method for receiving ID of element
+     * @return int ID
+     */
     public int receiveId() {
         int maxId = 0;
         for (Person person : persons) {
@@ -211,6 +237,10 @@ public class CollectionManager {
         return maxId + 1;
     }
 
+    /**
+     * Method for receiving name of element
+     * @return String name
+     */
     public String receiveName() {
         for ( ; ; ) {
             try {
@@ -232,6 +262,10 @@ public class CollectionManager {
         }
     }
 
+    /**
+     * Method for receiving x-coordinate of element
+     * @return long x
+     */
     public long receiveX() {
         for ( ; ; ) {
             try {
@@ -259,6 +293,10 @@ public class CollectionManager {
         }
     }
 
+    /**
+     * Method for receiving y-coordinate of element
+     * @return Float y
+     */
     public Float receiveY() {
         for ( ; ; ) {
             try {
@@ -274,10 +312,15 @@ public class CollectionManager {
         }
     }
 
+    /** Method for making coordinates by using methods receiveX() and receiveY() */
     public Coordinates receiveCoordinates() {
         return new Coordinates(receiveX(), receiveY());
     }
 
+    /**
+     * Method for receiving height of element
+     * @return long height
+     */
     public long receiveHeight() {
         for ( ; ; ) {
             try {
@@ -298,6 +341,10 @@ public class CollectionManager {
         }
     }
 
+    /**
+     * Method for receiving x-coordinate of location of element
+     * @return long xLocation
+     */
     public long receiveXLocation() {
         for ( ; ; ) {
             try {
@@ -313,6 +360,10 @@ public class CollectionManager {
         }
     }
 
+    /**
+     * Method for receiving y-coordinate of element
+     * @return Double yLocation
+     */
     public Double receiveYLocation() {
         for ( ; ; ) {
             try {
@@ -328,6 +379,10 @@ public class CollectionManager {
         }
     }
 
+    /**
+     * Method for receiving name of element`s location
+     * @return String nameLocation
+     */
     public String receiveNameLocation() {
         for ( ; ; ) {
             try {
@@ -348,10 +403,19 @@ public class CollectionManager {
         }
     }
 
+    /**
+     * Method for receiving Location field by using methods receiveXLocation(),
+     * receiveYLocation() and receiveNameLocation()
+     * @return Location location
+     */
     public Location receiveLocation() {
         return new Location(receiveXLocation(), receiveYLocation(), receiveNameLocation());
     }
 
+    /**
+     * Method for receiving eye color of element
+     * @return EyeColor eyeColor
+     */
     public EyeColor receiveEyeColor() {
         for ( ; ; ) {
             try {
@@ -379,6 +443,10 @@ public class CollectionManager {
         }
     }
 
+    /**
+     * Method for receiving hair color of element
+     * @return HairColor hairColor
+     */
     public HairColor receiveHairColor() {
         for ( ; ; ) {
             try {
@@ -406,6 +474,10 @@ public class CollectionManager {
         }
     }
 
+    /**
+     * Method for receiving nationality of element
+     * @return Country nationality
+     */
     public Country receiveNationality() {
         for ( ; ; ) {
             try {
@@ -433,6 +505,7 @@ public class CollectionManager {
         }
     }
 
+    /** Method for adding element by using all receive-fields methods */
     public void add() {
         Person newPerson = new Person(receiveId(), receiveName(), receiveCoordinates(), returnDate(),
                 receiveHeight(), receiveEyeColor(), receiveHairColor(), receiveNationality(), receiveLocation());
@@ -444,6 +517,7 @@ public class CollectionManager {
         }
     }
 
+    /** Method for saving (marshaling) java collection to XML-file and updating hash of file */
     public void save() {
         try {
             Persons newPersons = new Persons();
@@ -467,14 +541,21 @@ public class CollectionManager {
         }
     }
 
+    /**
+     * Method for receiving hash of the file
+     * @return String hash
+     */
     public String hashCollection(String filename) {
         try (InputStream is = Files.newInputStream(Paths.get(filename))) {
             return org.apache.commons.codec.digest.DigestUtils.md5Hex(is);
         } catch (IOException ioException) {
-            return "File saving error. Try again.";
+            System.out.print("File saving critical error. Try again.");
+            System.exit(1);
+            return null;
         }
     }
 
+    /** Method for remove elements from collection if it`s height more than entered height */
     public void remove_greater(long height) {
         int counter = 0;
         for (Person person : persons) {
@@ -486,6 +567,7 @@ public class CollectionManager {
         System.out.println("Operation was finished successfully. " + counter + " elements were deleted.");
     }
 
+    /** Method for remove elements from collection if it`s height less than entered height */
     public void remove_lower(long height) {
         int counter = 0;
         for (Person person : persons) {
@@ -497,6 +579,7 @@ public class CollectionManager {
         System.out.println("Operation was finished successfully. " + counter + " elements were deleted.");
     }
 
+    /** Method for adding element to collection if it`s height less than entered height */
     public void add_if_min(Person example) {
         long minimalHeight = Long.MAX_VALUE;
         for (Person person : persons) {
@@ -513,6 +596,7 @@ public class CollectionManager {
         }
     }
 
+    /** Method for printing sum of element`s heights */
     public void sum_of_height() {
         double sum = 0;
         for (Person person : persons) {
@@ -521,6 +605,7 @@ public class CollectionManager {
         System.out.println("Sum of height values in this collection is " + sum);
     }
 
+    /** Method for switching off the program */
     public void exit() {
         try {
             System.out.println("Program will be finished now. ");
@@ -532,11 +617,13 @@ public class CollectionManager {
         }
     }
 
+    /** Method for removing all elements from collection */
     public void clear() {
         persons.clear();
         System.out.println("Collection was cleaned successfully.");
     }
 
+    /** Method for counting amount of elements, which nationality`s hashcode greater than entered nationality */
     public void count_greater_than_nationality (Country country) {
         int exampleHashcode = country.hashCode();
         int counter = 0;
@@ -548,6 +635,7 @@ public class CollectionManager {
         System.out.println("Operation was finished successfully. " + counter + " elements.");
     }
 
+    /** Method for removing the element by it`s ID */
     public void remove_by_id(String id) {
         for (Person person : persons) {
             int intId = person.getId();
@@ -560,6 +648,7 @@ public class CollectionManager {
         System.out.println("Element with this ID is not defined.");
     }
 
+    /** Method for updating the element by it`s ID */
     public void update_by_id(String id) {
         for (Person person : persons) {
             int intId = person.getId();
@@ -576,6 +665,7 @@ public class CollectionManager {
         System.out.println("Element with this ID is not defined.");
     }
 
+    /** Method for counting amount and grouping elements by it`s nationality field */
     public void group_counting_by_nationality() {
         int chinaCounter = 0;
         int germanyCounter = 0;
@@ -596,6 +686,7 @@ public class CollectionManager {
         System.out.println("Third group: North Korea. Amount of elements: " + northKoreaCounter);
     }
 
+    /** Method for executing script from external file */
     public void execute_script(String nameOfFile) {
         try {
             System.out.println("WARNING. To avoid recursion, your file cannot contain execute script commands.");
@@ -670,6 +761,7 @@ public class CollectionManager {
         }
     }
 
+    /** Method for printing current date in string representation */
     public String returnDate() {
         return ZonedDateTime.now().toString();
     }
