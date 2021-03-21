@@ -2,20 +2,35 @@ import data.Person;
 
 import java.util.*;
 
+/**
+ * @author Ivan Nesterov
+ * @version 1.0
+ * Method for handling user`s command
+ */
 public class Commander {
 
+    /** Collection manager for realising user`s commands */
     private final CollectionManager collectionManager;
+    /** Field for receiving user`s command */
     private String userCommand;
+    /** Field for separating user input into a command and an argument to it */
     private String[] finalUserCommand;
 
     {
         userCommand = "";
     }
 
+    /**
+     * Constructor for making a commander
+     * @param manager - CollectionManager class object which will realise user`s commands
+     */
     public Commander(CollectionManager manager) {
         this.collectionManager = manager;
     }
 
+    /**
+     * Method for starting interactive mood
+     */
     public void interactiveMod() {
         try {
             try (Scanner commandReader = new Scanner(System.in)) {
@@ -98,6 +113,7 @@ public class Commander {
         }
     }
 
+    /** Method for comparing elements */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -106,6 +122,7 @@ public class Commander {
         return Objects.equals(commander, commander.collectionManager);
     }
 
+    /** Method for receiving hashcode of element */
     @Override
     public int hashCode() {
         int result = Objects.hash(collectionManager, userCommand);
