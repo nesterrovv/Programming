@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="Lab5:jar" />
+    </artifacts-to-build>
+  </component>
   <component name="BranchesTreeState">
     <expand>
       <path>
@@ -49,10 +54,10 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/commons-codec-1.15-bin/commons-codec-1.15/commons-codec-1.15.jar" />
-    <property name="project.structure.last.edited" value="Modules" />
-    <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.proportion" value="0.15917969" />
+    <property name="project.structure.side.proportion" value="0.2" />
   </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true">
@@ -114,38 +119,50 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="531" y="113" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1615927630706" />
+    <state x="250" y="203" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1616344793985">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="250" y="203" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1536.824@0.0.1536.824" timestamp="1616344793985" />
     <state x="551" y="307" width="433" height="216" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1613375888783">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="551" y="307" width="433" height="216" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1536.824@0.0.1536.824" timestamp="1613375888783" />
-    <state x="473" y="154" key="FileChooserDialogImpl" timestamp="1616153710927">
+    <state x="369" y="535" key="DetectedRootsChooserDialog" timestamp="1616336551235">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="473" y="154" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1616153710927" />
-    <state width="1493" height="90" key="GridCell.Tab.0.bottom" timestamp="1616271597640">
+    <state x="369" y="535" key="DetectedRootsChooserDialog/0.0.1536.824@0.0.1536.824" timestamp="1616336551235" />
+    <state x="473" y="154" key="FileChooserDialogImpl" timestamp="1616336547354">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="90" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1616271597640" />
-    <state width="1493" height="90" key="GridCell.Tab.0.center" timestamp="1616271597640">
+    <state x="473" y="154" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1616336547354" />
+    <state width="1493" height="90" key="GridCell.Tab.0.bottom" timestamp="1616342008386">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="90" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1616271597640" />
-    <state width="1493" height="90" key="GridCell.Tab.0.left" timestamp="1616271597640">
+    <state width="1493" height="90" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1616342008386" />
+    <state width="1493" height="90" key="GridCell.Tab.0.center" timestamp="1616342008385">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="90" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1616271597640" />
-    <state width="1493" height="90" key="GridCell.Tab.0.right" timestamp="1616271597640">
+    <state width="1493" height="90" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1616342008385" />
+    <state width="1493" height="90" key="GridCell.Tab.0.left" timestamp="1616342008385">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="90" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1616271597640" />
-    <state x="249" y="0" key="SettingsEditor" timestamp="1615841652067">
+    <state width="1493" height="90" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1616342008385" />
+    <state width="1493" height="90" key="GridCell.Tab.0.right" timestamp="1616342008385">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="249" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1615841652067" />
-    <state x="209" y="33" key="new project wizard" timestamp="1613973890552">
+    <state width="1493" height="90" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1616342008385" />
+    <state x="0" y="0" key="SettingsEditor" timestamp="1616344800479">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="209" y="33" key="new project wizard/0.0.1536.824@0.0.1536.824" timestamp="1613973890552" />
+    <state x="0" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1616344800479" />
+    <state x="324" y="281" key="classpath-attribute-editor" timestamp="1616336784451">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="324" y="281" key="classpath-attribute-editor/0.0.1536.824@0.0.1536.824" timestamp="1616336784451" />
+    <state x="209" y="33" key="new project wizard" timestamp="1616337234505">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="209" y="33" key="new project wizard/0.0.1536.824@0.0.1536.824" timestamp="1616337234505" />
     <state x="425" y="187" key="run.anything.popup" timestamp="1616179509121">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
