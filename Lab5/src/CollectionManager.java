@@ -73,8 +73,8 @@ public class CollectionManager {
         Scanner scanner = new Scanner(System.in);
         try {
             for ( ; ; ) {
-                System.out.print("Enter a full path to XML file with collection: ");
-                String pathToFile = scanner.nextLine().trim().toLowerCase();
+                System.out.println("Enter a full path to XML file with collection: ");
+                String pathToFile = scanner.nextLine();
                 File file = new File(pathToFile);
                 if (file.exists()) {
                     if (file.canRead()) {
@@ -89,7 +89,7 @@ public class CollectionManager {
                             try {
                                 final QName qName = new QName("person");
 
-                                InputStream inputStream = new FileInputStream(new File("persons.xml"));
+                                InputStream inputStream = new FileInputStream(new File("/home/s312621/Lab5/persons.xml"));
 
                                 // create xml event reader for input stream
                                 XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
@@ -119,13 +119,14 @@ public class CollectionManager {
                                  Checking that the file has not been modified.
                                  Implemented by comparing the current hash of the file with the previous one */
                                 try {
-                                    File myFile = new File("hash.txt");
+                                    File myFile = new File("/home/s312621/Lab5/hash.txt");
                                     FileReader fr = new FileReader(myFile);
                                     BufferedReader reader = new BufferedReader(fr);
                                     checker = reader.readLine();
                                     reader.close();
                                 } catch (FileNotFoundException fileNotFoundException) {
                                     System.out.println("File not found. Try again.");
+                                    System.exit(1);
                                 } catch (IOException ioException) {
                                     System.out.println("File saving critical error.");
                                 }
@@ -527,9 +528,9 @@ public class CollectionManager {
             jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
             //Marshal the persons list in file
             jaxbMarshaller.marshal(newPersons, xmlCollection);
-            hash = hashCollection("persons.xml");
+            hash = hashCollection("/home/s312621/Lab5/persons.xml");
             try {
-                FileWriter fileWriter = new FileWriter("hash.txt", false);
+                FileWriter fileWriter = new FileWriter("/home/s312621/Lab5/hash.txt", false);
                 fileWriter.write(hash);
                 fileWriter.flush();
             } catch (IOException ioException) {
@@ -537,7 +538,7 @@ public class CollectionManager {
             }
         }
         catch (JAXBException jaxbException) {
-            System.out.println("XML syntax error. Try again. :-(");
+            System.out.println("XML syntax error. Try again. ");
         }
     }
 
