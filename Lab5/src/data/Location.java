@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.XmlType;
 public class Location {
     /** field x */
     @XmlElement
-    private long x;
+    private Long x;
     /** field y */
     @XmlElement
     private Double y; //Поле не может быть null
@@ -28,7 +28,7 @@ public class Location {
      * @param y - y-coordinate
      * @param name - name of location
      */
-    public Location(long x, Double y, String name) {
+    public Location(Long x, Double y, String name) {
         this.x = x;
         this.y = y;
         this.name = name;
@@ -47,5 +47,17 @@ public class Location {
                 ", y= " + y +
                 ", name=' " + name + '\'' +
                 '}';
+    }
+
+    public Long getX() {
+        return x;
+    }
+
+    public Double getY() {
+        return y;
+    }
+
+    public String getName() {
+        return name;
     }
 }
