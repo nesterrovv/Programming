@@ -26,14 +26,11 @@ public class CollectionManager {
     /** Field used for saving collection into xml file */
     private File xmlCollection;
     /** Field for saving date of initialization thw collection */
-    private Date initializationDate;
+    private ZonedDateTime initializationDate;
     /** Field for checking the program was started */
     private boolean wasStart;
     /** HashMap collection for making a manual */
     private final HashMap<String, String> commandsInfo;
-    /** The field for storing the hash in order to check that the file has not been artificially modified */
-    String hash;
-
     {
         wasStart = false;
         persons = new HashSet<>();
@@ -73,100 +70,58 @@ public class CollectionManager {
         Scanner scanner = new Scanner(System.in);
         try {
             for ( ; ; ) {
-                System.out.println("Enter a full path to XML file with collection: ");
+                System.out.print("Enter a full path to XML file with collection: ");
                 String pathToFile = scanner.nextLine();
-                File file = new File(pathToFile);
-                if (file.exists()) {
-                    if (file.canRead()) {
-                        if (file.canWrite()) {
-
-                            this.xmlCollection = new File(pathToFile);
-                            this.initializationDate = new Date();
-                            this.wasStart = true;
-
-                            System.out.println("Collection manager was stated successfully.");
-
-                            try {
-                                final QName qName = new QName("person");
-
-                                InputStream inputStream = new FileInputStream(new File("/home/s312621/Lab5/persons.xml"));
-
-                                // create xml event reader for input stream
-                                XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
-                                XMLEventReader xmlEventReader = xmlInputFactory.createXMLEventReader(inputStream);
-
-                                // initialize jaxb
-                                JAXBContext context = JAXBContext.newInstance(Person.class);
-                                Unmarshaller unmarshaller = context.createUnmarshaller();
-
-                                String checker = "";
-                                XMLEvent e;
-                                // Field for counting amount of downloaded elements
-                                int counter = 0;
-                                // Loop for unmarshalling the collection
-                                while ((e = xmlEventReader.peek()) != null) {
-                                    // check the event is a Document start element
-                                    if (e.isStartElement() && ((StartElement) e).getName().equals(qName)) {
-                                        // unmarshall the document
-                                        Person unmarshalledPerson = unmarshaller.unmarshal(xmlEventReader, Person.class).getValue();
-                                        persons.add(unmarshalledPerson);
-                                        counter += 1;
-                                    } else {
-                                        xmlEventReader.next();
-                                    }
-                                }
-                                /*
-                                 Checking that the file has not been modified.
-                                 Implemented by comparing the current hash of the file with the previous one */
-                                try {
-                                    File myFile = new File("/home/s312621/Lab5/hash.txt");
-                                    FileReader fr = new FileReader(myFile);
-                                    BufferedReader reader = new BufferedReader(fr);
-                                    checker = reader.readLine();
-                                    reader.close();
-                                } catch (FileNotFoundException fileNotFoundException) {
-                                    System.out.println("File not found. Try again.");
-                                    System.exit(1);
-                                } catch (IOException ioException) {
-                                    System.out.println("File saving critical error.");
-                                }
-                                if (org.apache.commons.codec.digest.DigestUtils.md5Hex(Files.newInputStream(Paths.get(pathToFile))).equals(checker)) {
-                                    System.out.println("Collection was loaded successfully. " + counter +
-                                            " elements has been loaded.");
-                                } else {
-                                    System.out.println("You changed the file artificially, without using a" +
-                                            " collection manager.");
-                                    System.out.println(" The file is damaged and the program cannot work.");
-                                    System.out.println(" The file is damaged and the program cannot work.");
-                                    System.out.println("Contact support (https://t.me/nesterrovv) to resolve" +
-                                            " this issue");
-                                    System.exit(1);
-                                }
-                            } catch (JAXBException jaxbException) {
-                                System.out.println("XML syntax error.");
-                            } catch (FileNotFoundException fileNotFoundException) {
-                                System.out.println("File not found");
-                            } catch (XMLStreamException xmlStreamException) {
-                                System.out.println("XML Stream error");
-                            } catch (IOException ioException) {
-                                System.out.println("Runtime exception. Try again.");
-                            }
-                            break;
-                        }
-                    }
-                } else {
-                    if (!file.exists()) {
-                        System.out.println("File is not exist. Try again.");
-                    } else {
-                        if (!file.canRead()) {
-                            System.out.println("File cannot be readable. You should to give this permission.");
-                        } else {
-                            if (!file.canWrite()) {
-                                System.out.println("File cannot be writeable. You should to give this permission.");
+                if (checkFile(pathToFile)) {
+                    try {
+                        final QName qName = new QName("person");
+                        InputStream inputStream = new FileInputStream(new File(pathToFile));
+                        // create xml event reader for input stream
+                        XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
+                        XMLEventReader xmlEventReader = xmlInputFactory.createXMLEventReader(inputStream);
+                        // initialize jaxb
+                        JAXBContext context = JAXBContext.newInstance(Person.class);
+                        Unmarshaller unmarshaller = context.createUnmarshaller();
+                        XMLEvent e;
+                        // Field for counting amount of downloaded elements
+                        int counterGood = 0;
+                        int counterBad = 0;
+                        // Loop for unmarshalling the collection
+                        while ((e = xmlEventReader.peek()) != null) {
+                            // check the event is a Document start element
+                            if (e.isStartElement() && ((StartElement) e).getName().equals(qName)) {
+                                // unmarshall the document
+                                Person unmarshalledPerson = unmarshaller.unmarshal(xmlEventReader, Person.class).getValue();
+                                Coordinates newCoordinates = unmarshalledPerson.getCoordinates();
+                                Location newLocation = unmarshalledPerson.getLocation();
+                                if (unmarshalledPerson.getId() != 0 && !unmarshalledPerson.getName().equals(null) &&
+                                !newCoordinates.getX().equals(null) && !newCoordinates.getY().equals(null) &&
+                                !unmarshalledPerson.returnCreationDate().equals(null) && unmarshalledPerson.getHeight() > 0
+                                && !unmarshalledPerson.getEyeColor().equals(null) && !unmarshalledPerson.getHairColor().equals(null)
+                                && !unmarshalledPerson.getNationality().equals(null) && !newLocation.getX().equals(null) &&
+                                !newLocation.getY().equals(null) && !newLocation.getName().equals(null)) {
+                                    persons.add(unmarshalledPerson);
+                                    counterGood += 1;
+                                } else counterBad += 1;
+                            } else {
+                                xmlEventReader.next();
+                                xmlEventReader.next();
                             }
                         }
+                        System.out.println("Collection was loaded successfully. " + counterGood + " elements has been loaded.");
+                        System.out.println("Amount of elements which contains invalid values and has not been loaded: " + counterBad);
+                        xmlCollection = new File(pathToFile);
+                        wasStart = true;
+                        initializationDate = ZonedDateTime.now();
+                        break;
+                    } catch (JAXBException jaxbException) {
+                        System.out.println("XML syntax error.");
+                    } catch (FileNotFoundException fileNotFoundException) {
+                        System.out.println("File not found");
+                    } catch (XMLStreamException xmlStreamException) {
+                        System.out.println("XML Stream error");
                     }
-                }
+                } else System.out.println("Try again.");
             }
         } catch (NoSuchElementException noSuchElementException) {
             System.out.println("Program will be finished now.");
@@ -175,31 +130,24 @@ public class CollectionManager {
     }
 
     /**
-     * Check file for readiness to work
+     * Class which check file is existed, and can be readable and writeable.
      * @return readiness status
-     * */
-    public boolean checkFile() {
-        if (xmlCollection.exists()) {
-            if (xmlCollection.canRead()) {
-                return xmlCollection.canWrite();
-            }
-        } else {
-            if (!xmlCollection.exists()) {
-                System.out.println("File is not exist. Try again.");
-                return false;
-            } else {
-                if (!xmlCollection.canRead()) {
-                    System.out.println("File cannot be readable. You should to give this permission.");
-                    return false;
-                } else {
-                    if (!xmlCollection.canWrite()) {
-                        System.out.println("File cannot be writeable. You should to give this permission.");
-                        return false;
-                    }
-                }
-            }
+     */
+    public boolean checkFile(String pathToFile) {
+        File checkingFile = new File(pathToFile);
+        if (!checkingFile.exists()) {
+            System.out.println("File not found. Try again.");
+            return false;
         }
-        return false;
+        if (!checkingFile.canRead()) {
+            System.out.println("File cannot be readable. You should to have this permission.");
+            return false;
+        }
+        if (!checkingFile.canWrite()) {
+            System.out.println("File cannot be writeable. You should to have this permission.");
+            return false;
+        }
+        return true;
     }
 
     /** Method for printing manual for user */
@@ -511,11 +459,6 @@ public class CollectionManager {
         Person newPerson = new Person(receiveId(), receiveName(), receiveCoordinates(), returnDate(),
                 receiveHeight(), receiveEyeColor(), receiveHairColor(), receiveNationality(), receiveLocation());
         persons.add(newPerson);
-        if (checkFile()) {
-            System.out.println("Element was added successfully. You should to save changes into a file. ");
-        } else {
-            System.out.println("Resolve the indicated problem. Otherwise, the results of your work will not be saved. ");
-        }
     }
 
     /** Method for saving (marshaling) java collection to XML-file and updating hash of file */
@@ -528,34 +471,13 @@ public class CollectionManager {
             jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
             //Marshal the persons list in file
             jaxbMarshaller.marshal(newPersons, xmlCollection);
-            hash = hashCollection("/home/s312621/Lab5/persons.xml");
-            try {
-                FileWriter fileWriter = new FileWriter("/home/s312621/Lab5/hash.txt", false);
-                fileWriter.write(hash);
-                fileWriter.flush();
-            } catch (IOException ioException) {
-                System.out.println("File saving critical error.");
-            }
-        }
-        catch (JAXBException jaxbException) {
+        } catch (JAXBException jaxbException) {
             System.out.println("XML syntax error. Try again. ");
         }
-    }
 
-    /**
-     * Method for receiving hash of the file
-     * @return String hash
-     */
-    public String hashCollection(String filename) {
-        try (InputStream is = Files.newInputStream(Paths.get(filename))) {
-            return org.apache.commons.codec.digest.DigestUtils.md5Hex(is);
-        } catch (IOException ioException) {
-            System.out.print("File saving critical error. Try again.");
-            System.exit(1);
-            return null;
-        }
-    }
 
+    }
+    
     /** Method for remove elements from collection if it`s height more than entered height */
     public void remove_greater(long height) {
         int counter = 0;
