@@ -1,5 +1,6 @@
-import data.Person;
+package server.data;
 
+import server.data.Person;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
