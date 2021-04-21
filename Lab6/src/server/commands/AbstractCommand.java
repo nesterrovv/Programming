@@ -1,6 +1,6 @@
-package commands;
+package server.commands;
 
-import server.CollectionManager;
+import server.serverCode.CollectionManager;
 import java.util.Objects;
 
 public abstract class AbstractCommand {
@@ -16,7 +16,7 @@ public abstract class AbstractCommand {
      * Метод служит для выполнения кода команды без агрументов.
      * @return строка, которая содержит результат операции.
      */
-    public synchronized String execute() {
+    public synchronized Object execute() {
         return "Отсутствует аргумент.";
     }
 
@@ -25,7 +25,7 @@ public abstract class AbstractCommand {
      * @param arg аргумент команды.
      * @return строка, которая содержит результат операции.
      */
-    public synchronized String execute(String arg) {
+    public synchronized Object execute(String arg) {
         return execute();
     }
 
