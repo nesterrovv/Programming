@@ -1,4 +1,4 @@
-package data;
+package server.data;
 
 import javax.xml.bind.annotation.*;
 import java.time.*;
