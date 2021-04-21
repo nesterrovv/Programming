@@ -1,4 +1,4 @@
-package server;
+package server.serverCode;
 
 import javax.xml.bind.*;
 import javax.xml.namespace.QName;
@@ -13,8 +13,7 @@ import java.nio.file.Paths;
 import java.time.ZonedDateTime;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
-
-import data.*;
+import server.data.*;
 
 /**
  * @author Ivan Nesterov
@@ -24,7 +23,7 @@ import data.*;
 public class CollectionManager {
 
     /** HashSet collection for keeping a collection as java-object */
-    private final HashSet<data.Person> persons;
+    private final HashSet<server.data.Person> persons;
     /** Field used for saving collection into xml file */
     private File xmlCollection;
     /** Field for saving date of initialization thw collection */
@@ -689,5 +688,9 @@ public class CollectionManager {
     /** Method for printing current date in string representation */
     public String returnDate() {
         return ZonedDateTime.now().toString();
+    }
+
+    public HashMap getInfoCommands() {
+        return commandsInfo;
     }
 }
