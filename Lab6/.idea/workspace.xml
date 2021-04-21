@@ -98,5 +98,17 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1493" height="210" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1618599346573" />
+    <state x="377" y="101" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1619024025478">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="377" y="101" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1536.824@0.0.1536.824" timestamp="1619024025478" />
+    <state x="611" y="170" key="refactoring.ChangeSignatureDialog" timestamp="1619034868601">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="611" y="170" key="refactoring.ChangeSignatureDialog/0.0.1536.824@0.0.1536.824" timestamp="1619034868601" />
+    <state x="431" y="145" key="search.everywhere.popup" timestamp="1619038244500">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="431" y="145" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1619038244500" />
   </component>
 </project>
