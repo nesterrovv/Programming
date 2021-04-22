@@ -1,38 +1,103 @@
+package server.serverCode;
+
+
+import server.commands.*;
+
 import java.io.*;
-import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
+import java.util.HashMap;
+import java.util.Objects;
 
-public class Server {
+public class ServerConnection implements Runnable {
 
-    private static Socket clientSocket;
-    private static ServerSocket server;
-    private static BufferedReader in;
-    private static BufferedWriter out;
+    private final CollectionManager serverCollection;
+    private final Socket incoming;
+    private final HashMap<String, AbstractCommand> availableCommands;
 
-    public static void main(String[] args) {
-        // Loop for connecting to server
-        for (; ; ) {
-            try {
-                server = new ServerSocket(4242);
-                System.out.println("Server was started!");
-                clientSocket = server.accept();
-                // do something here
-                try {
-                    in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-                    out = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
-                    String command = in.readLine();
-                    System.out.println(command);
-                    out.write("Hello, it is Server! Your message: " + command + "\n");
-                    out.flush();
-                } finally {
-                    clientSocket.close();
-                    in.close();
-                    out.close();
+    /**
+     * @param serverCollection обеспечивает доступ к коллекции.
+     * @param incoming активное соединение с клиентской программой.
+     * Команды, доступные клиенту, являются объектами {@link AbstractCommand}, хранящимися в
+     * {@code HashMap <String, AbstractCommand> availableCommands}.
+     */
+    ServerConnection(CollectionManager serverCollection, Socket incoming) {
+        this.serverCollection = serverCollection;
+        this.incoming = incoming;
+        availableCommands = new HashMap<>();
+        availableCommands.put("add", new AddCommand(serverCollection));
+        availableCommands.put("add_if_min", new AddIfMinCommand(serverCollection));
+        availableCommands.put("clear", new ClearCommand(serverCollection));
+        availableCommands.put("count_greater_than_nationality", new CountGreaterThanNationalityCommand(serverCollection));
+        availableCommands.put("execute_script", new ExecuteScriptCommand(serverCollection));
+        availableCommands.put("exit", new ExitCommand(serverCollection));
+        availableCommands.put("group_counting_by_nationality", new GroupCountingByNationalityCommand(serverCollection));
+        availableCommands.put("help", new HelpCommand(serverCollection));
+        availableCommands.put("info", new InfoCommand(serverCollection));
+        availableCommands.put("remove_by_id", new RemoveByIdCommand(serverCollection));
+        availableCommands.put("remove_greater", new RemoveGreaterCommand(serverCollection));
+        availableCommands.put("remove_lower", new RemoveLowerCommand(serverCollection));
+        availableCommands.put("save", new SaveCommand(serverCollection));
+        availableCommands.put("show", new ShowCommand(serverCollection));
+        availableCommands.put("sum_of_height", new SumOfHeightCommand(serverCollection));
+        availableCommands.put("update_by_id", new UpdateByIdCommand(serverCollection));
+
+    }
+
+    /**
+     * Запускает активное соединение с клиентом в новом {@link Thread}.
+     */
+    @Override
+    public void run() {
+        try (ObjectInputStream getFromClient = new ObjectInputStream(incoming.getInputStream());
+             ObjectOutputStream sendToClient = new ObjectOutputStream(incoming.getOutputStream())) {
+            sendToClient.writeObject("Соединение установлено.\nВы можете вводить команды.");
+            AbstractCommand errorCommand = new AbstractCommand(null) {
+                @Override
+                public String execute() {
+                    return "Неизвестная команда. Введите 'help' для получения списка команд.";
                 }
-                break;
-            } catch (IOException ioException) {
-                System.out.println("Server is not available. Reconnection...");
+            };
+            while (true) {
+                try {
+                    String requestFromClient = (String) getFromClient.readObject();
+                    System.out.print("Получено [" + requestFromClient + "] от " + incoming + ". ");
+                    String[] parsedCommand = requestFromClient.trim().split(" ",2);
+                    if (parsedCommand.length == 1)
+                        sendToClient.writeObject(availableCommands.getOrDefault(parsedCommand[0], errorCommand).execute());
+                    else if (parsedCommand.length == 2)
+                        sendToClient.writeObject(availableCommands.getOrDefault(parsedCommand[0], errorCommand).execute(parsedCommand[1]));
+                    System.out.println("Ответ успешно отправлен.");
+                } catch (SocketException e) {
+                    System.out.println(incoming + " отключился от сервера."); //Windows
+                    break;
+                }
             }
+        } catch (IOException | ClassNotFoundException ex) {
+            System.err.println(incoming + " отключился от сервера."); //Unix
         }
+    }
+
+    @Override
+    public String toString() {
+        return "ServerConnection{" +
+                "serverCollection=" + serverCollection +
+                ", incoming=" + incoming +
+                ", availableCommands=" + availableCommands +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ServerConnection)) return false;
+        ServerConnection that = (ServerConnection) o;
+        return Objects.equals(serverCollection, that.serverCollection) &&
+                Objects.equals(availableCommands, that.availableCommands);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(serverCollection, availableCommands);
     }
 }
