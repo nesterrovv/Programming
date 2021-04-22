@@ -24,22 +24,22 @@ public class ClientConnection {
                         toServer = outputStream;
                         fromServer = inputStream;
                         interactiveMode();
-                        System.out.println("Завершение программы.");
+                        System.out.println("Finishing a program...");
                     }
                 } catch (IOException e) {
-                    System.err.println("Нет связи с сервером. Подключться ещё раз (введите {да} или {нет})?");
+                    System.err.println("Server is not available at the moment. Reconnect? (enter {yes} or {no})?");
                     String answer;
-                    while (!(answer = fromKeyboard.nextLine()).equals("да")) {
+                    while (!(answer = fromKeyboard.nextLine()).equals("yes")) {
                         switch (answer) {
                             case "":
                                 break;
-                            case "нет":
+                            case "no":
                                 exit();
                                 break;
-                            default: System.out.println("Введите корректный ответ.");
+                            default: System.out.println("Please write a correct answer.");
                         }
                     }
-                    System.out.print("Подключение ...");
+                    System.out.print("Connecting...");
                 }
             }
         }
@@ -59,11 +59,11 @@ public class ClientConnection {
                             toServer.writeObject(importingFile(parsedCommand[1]));
                             System.out.println((String) fromServer.readObject());
                         } catch (FileNotFoundException e) {
-                            System.out.println("Файл по указанному пути не найден.");
+                            System.out.println("File not found.");
                         } catch (SecurityException e) {
-                            System.out.println("Файл защищён от чтения.");
+                            System.out.println("File cannot be read.");
                         } catch (IOException e) {
-                            System.out.println("Что-то не так с файлом.");
+                            System.out.println("Something bad with file. Try again");
                         }
                         break;
                     default:
@@ -73,14 +73,14 @@ public class ClientConnection {
             }
             exit();
         } catch (ClassNotFoundException e) {
-            System.err.println("Класс не найден: " + e.getMessage());
+            System.err.println("Class not found: " + e.getMessage());
         }
     }
 
     private String importingFile(String path) throws SecurityException, IOException {
         File localCollection = new File(path);
         String extension = localCollection.getAbsolutePath().substring(localCollection.getAbsolutePath().lastIndexOf(".") + 1);
-        if (!localCollection.exists() | localCollection.length() == 0  | !extension.equals("json"))
+        if (!localCollection.exists() | localCollection.length() == 0  | !extension.equals("xml"))
             throw new FileNotFoundException();
         if (!localCollection.canRead()) throw new SecurityException();
         try (BufferedReader inputStreamReader = new BufferedReader(new FileReader(localCollection))) {
@@ -92,7 +92,7 @@ public class ClientConnection {
     }
 
     private void exit() {
-        System.out.println("Завершение программы.");
+        System.out.println("Finishing a program.");
         System.exit(0);
     }
 }
