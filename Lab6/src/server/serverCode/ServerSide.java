@@ -9,14 +9,10 @@ public class ServerSide {
 
     private static final CollectionManager serverCollection = new CollectionManager();
 
-    /**
-     * Точка входа в программу. Управляет подключением к клиентам и созданием потоков для каждого из них.
-     * @param args массив по умолчанию в основном методе. Не используется здесь.
-     */
     public static void main(String[] args) {
         try (ServerSocket server = new ServerSocket(8800)) {
-            System.out.print("Сервер начал слушать клиентов. " + "\nПорт " + server.getLocalPort() +
-                    " / Адрес " + InetAddress.getLocalHost() + ".\nОжидаем подключения клиентов ");
+            System.out.print("Server is accepting a client. " + "\nPort " + server.getLocalPort() +
+                    " / Address " + InetAddress.getLocalHost() + ".\nWaiting a connection of clients... ");
             Thread pointer = new Thread(() -> {
                 while (!Thread.currentThread().isInterrupted()) {
                     System.out.print(".");
@@ -33,7 +29,7 @@ public class ServerSide {
             while (true) {
                 Socket incoming = server.accept();
                 pointer.interrupt();
-                System.out.println(incoming + " подключился к серверу.");
+                System.out.println(incoming + " is connected to server.");
                 Runnable r = new ServerConnection(serverCollection, incoming);
                 Thread t = new Thread(r);
                 t.start();
