@@ -5,26 +5,17 @@ import java.util.Objects;
 
 public abstract class AbstractCommand {
 
-    private CollectionManager manager; //Позволяет изменить коллекцию.
-    private String description; //Содержит краткое руководство к команде.
+    private CollectionManager manager;
+    private String description;
 
     public AbstractCommand(CollectionManager manager) {
         this.manager = manager;
     }
 
-    /**
-     * Метод служит для выполнения кода команды без агрументов.
-     * @return строка, которая содержит результат операции.
-     */
     public synchronized Object execute() {
-        return "Отсутствует аргумент.";
+        return "Argument is absent.";
     }
 
-    /**
-     * Метод служит для выполнения кода команды с агрументами.
-     * @param arg аргумент команды.
-     * @return строка, которая содержит результат операции.
-     */
     public synchronized Object execute(String arg) {
         return execute();
     }
