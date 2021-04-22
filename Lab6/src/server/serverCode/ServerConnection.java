@@ -1,8 +1,6 @@
 package server.serverCode;
 
-
 import server.commands.*;
-
 import java.io.*;
 import java.net.Socket;
 import java.net.SocketException;
@@ -15,12 +13,6 @@ public class ServerConnection implements Runnable {
     private final Socket incoming;
     private final HashMap<String, AbstractCommand> availableCommands;
 
-    /**
-     * @param serverCollection обеспечивает доступ к коллекции.
-     * @param incoming активное соединение с клиентской программой.
-     * Команды, доступные клиенту, являются объектами {@link AbstractCommand}, хранящимися в
-     * {@code HashMap <String, AbstractCommand> availableCommands}.
-     */
     ServerConnection(CollectionManager serverCollection, Socket incoming) {
         this.serverCollection = serverCollection;
         this.incoming = incoming;
@@ -44,18 +36,15 @@ public class ServerConnection implements Runnable {
 
     }
 
-    /**
-     * Запускает активное соединение с клиентом в новом {@link Thread}.
-     */
     @Override
     public void run() {
         try (ObjectInputStream getFromClient = new ObjectInputStream(incoming.getInputStream());
              ObjectOutputStream sendToClient = new ObjectOutputStream(incoming.getOutputStream())) {
-            sendToClient.writeObject("Соединение установлено.\nВы можете вводить команды.");
+            sendToClient.writeObject("The connection has been established.\nYou can write a command. ");
             AbstractCommand errorCommand = new AbstractCommand(null) {
                 @Override
                 public String execute() {
-                    return "Неизвестная команда. Введите 'help' для получения списка команд.";
+                    return "Unknown command. Write help for receiving list of available commands.";
                 }
             };
             while (true) {
@@ -67,14 +56,14 @@ public class ServerConnection implements Runnable {
                         sendToClient.writeObject(availableCommands.getOrDefault(parsedCommand[0], errorCommand).execute());
                     else if (parsedCommand.length == 2)
                         sendToClient.writeObject(availableCommands.getOrDefault(parsedCommand[0], errorCommand).execute(parsedCommand[1]));
-                    System.out.println("Ответ успешно отправлен.");
+                    System.out.println("Answer has been sent successfully.");
                 } catch (SocketException e) {
-                    System.out.println(incoming + " отключился от сервера."); //Windows
+                    System.out.println(incoming + " is disconnected to server."); //Windows
                     break;
                 }
             }
         } catch (IOException | ClassNotFoundException ex) {
-            System.err.println(incoming + " отключился от сервера."); //Unix
+            System.err.println(incoming + " is disconnected to server."); //Unix
         }
     }
 
