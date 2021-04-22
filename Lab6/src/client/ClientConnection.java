@@ -5,18 +5,14 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.util.Scanner;
 
-/**
- * Класс {@code ClientConnection} представляет объект клиента, подключаемый к серверу для манипулирования коллекцией.
- */
 public class ClientConnection {
 
     private static Scanner fromKeyboard;
     private static ObjectOutputStream toServer;
     private static ObjectInputStream fromServer;
 
-    /**
-     * Устанавливает активное соединение с сервером.
-     */
+    public ClientConnection() {}
+
     public void work() {
         try (Scanner scanner = new Scanner(System.in)) {
             fromKeyboard = scanner;
@@ -49,10 +45,6 @@ public class ClientConnection {
         }
     }
 
-    /**
-     * Парсит пользовательские команды и осуществляет обмен данными с сервером.
-     * @throws IOException при отправке и получении данных с сервера.
-     */
     private void interactiveMode() throws IOException {
         try {
             System.out.println((String) fromServer.readObject());
@@ -85,13 +77,6 @@ public class ClientConnection {
         }
     }
 
-    /**
-     * Импортирует локальный файл и отправляет на сервер.
-     * @param path путь к файлу.
-     * @return команду для сервера и содержимое файла.
-     * @throws SecurityException если отсутствуют права rw.
-     * @throws IOException если файл не существует.
-     */
     private String importingFile(String path) throws SecurityException, IOException {
         File localCollection = new File(path);
         String extension = localCollection.getAbsolutePath().substring(localCollection.getAbsolutePath().lastIndexOf(".") + 1);
@@ -106,9 +91,6 @@ public class ClientConnection {
         }
     }
 
-    /*
-    Отвечает за завершение работу клиентского приложения.
-     */
     private void exit() {
         System.out.println("Завершение программы.");
         System.exit(0);
