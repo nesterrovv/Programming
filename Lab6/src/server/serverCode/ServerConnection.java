@@ -33,7 +33,6 @@ public class ServerConnection implements Runnable {
         availableCommands.put("show", new ShowCommand(serverCollection));
         availableCommands.put("sum_of_height", new SumOfHeightCommand(serverCollection));
         availableCommands.put("update_by_id", new UpdateByIdCommand(serverCollection));
-
     }
 
     @Override
@@ -58,7 +57,7 @@ public class ServerConnection implements Runnable {
                         sendToClient.writeObject(availableCommands.getOrDefault(parsedCommand[0], errorCommand).execute(parsedCommand[1]));
                     System.out.println("Answer has been sent successfully.");
                 } catch (SocketException e) {
-                    System.out.println(incoming + " is disconnected to server."); //Windows
+                    System.out.println(incoming + " its disconnected to server."); //EcepWindows
                     break;
                 }
             }
