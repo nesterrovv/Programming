@@ -68,7 +68,7 @@ public class ClientConnection {
                         break;
                     default:
                         toServer.writeObject(command);
-                        System.out.println((String) fromServer.readObject());
+                        System.out.println(fromServer.readObject());
                 }
             }
             exit();
