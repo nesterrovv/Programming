@@ -10,7 +10,8 @@ public class GroupCountingByNationalityCommand extends AbstractCommand {
     }
 
     public synchronized String execute() {
-        getManager().group_counting_by_nationality();
-        return "Command is completed.";
+        StringBuilder result = new StringBuilder();
+        result.append(getManager().group_counting_by_nationality());
+        return result.toString();
     }
 }
