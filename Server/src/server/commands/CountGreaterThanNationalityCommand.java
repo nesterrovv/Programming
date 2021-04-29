@@ -10,8 +10,14 @@ public class CountGreaterThanNationalityCommand extends AbstractCommand {
         setDescription("Counts amounts of elements which nationality greater than current.");
     }
 
-    public synchronized String execute(Country nationality) {
-        getManager().count_greater_than_nationality(nationality);
-        return "Command is completed.";
+    public synchronized String execute(String arg) {
+        Country nationality = Country.valueOf(arg);
+        StringBuilder result = new StringBuilder();
+        try {
+            result.append(getManager().count_greater_than_nationality(nationality));
+        } catch (Exception exception) {
+            System.out.println("Invalid argument.");
+        }
+        return result.toString();
     }
 }
