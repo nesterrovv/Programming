@@ -11,7 +11,6 @@ public class ExitCommand extends AbstractCommand {
 
     @Override
     public synchronized String execute() {
-        getManager().exit();
-        return "Command is completed.";
+        return "Finishing a program.";
     }
 }
