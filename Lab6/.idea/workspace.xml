@@ -24,7 +24,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="93dd4fa5-3f02-4d2e-bd86-f0ba0e8a3110" name="Default Changelist" comment="" />
+    <list default="true" id="93dd4fa5-3f02-4d2e-bd86-f0ba0e8a3110" name="Default Changelist" comment="Variant with old-style collectionManager and not-working shos command. Commands are realised on server, but not on client" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -47,7 +47,8 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/jar_files/stax2-api-3.1.4.jar" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15917969" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="project.propCompiler" />
@@ -119,22 +120,26 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="498" y="214" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1536.824@0.0.1536.824" timestamp="1619099919079" />
-    <state width="1493" height="261" key="GridCell.Tab.0.bottom" timestamp="1619100014836">
+    <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1619438652852">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="261" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1619100014836" />
-    <state width="1493" height="261" key="GridCell.Tab.0.center" timestamp="1619100014836">
+    <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1619438652852" />
+    <state width="1493" height="158" key="GridCell.Tab.0.bottom" timestamp="1619692220727">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="261" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1619100014836" />
-    <state width="1493" height="261" key="GridCell.Tab.0.left" timestamp="1619100014835">
+    <state width="1493" height="158" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1619692220727" />
+    <state width="1493" height="158" key="GridCell.Tab.0.center" timestamp="1619692220727">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="261" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1619100014835" />
-    <state width="1493" height="261" key="GridCell.Tab.0.right" timestamp="1619100014836">
+    <state width="1493" height="158" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1619692220727" />
+    <state width="1493" height="158" key="GridCell.Tab.0.left" timestamp="1619692220727">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="261" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1619100014836" />
+    <state width="1493" height="158" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1619692220727" />
+    <state width="1493" height="158" key="GridCell.Tab.0.right" timestamp="1619692220727">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="158" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1619692220727" />
     <state width="1493" height="261" key="GridCell.Tab.1.bottom" timestamp="1619100014836">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -151,29 +156,34 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1493" height="261" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1619100014836" />
-    <state x="277" y="0" key="SettingsEditor" timestamp="1619086338151">
+    <state x="277" y="0" key="SettingsEditor" timestamp="1619438655058">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="277" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1619086338151" />
+    <state x="277" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1619438655058" />
     <state x="377" y="101" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1619024025478">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="377" y="101" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1536.824@0.0.1536.824" timestamp="1619024025478" />
-    <state x="209" y="33" key="new project wizard" timestamp="1619088014649">
+    <state x="209" y="33" key="new project wizard" timestamp="1619389693951">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="209" y="33" key="new project wizard/0.0.1536.824@0.0.1536.824" timestamp="1619088014649" />
+    <state x="209" y="33" key="new project wizard/0.0.1536.824@0.0.1536.824" timestamp="1619389693951" />
     <state x="611" y="170" key="refactoring.ChangeSignatureDialog" timestamp="1619034868601">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="611" y="170" key="refactoring.ChangeSignatureDialog/0.0.1536.824@0.0.1536.824" timestamp="1619034868601" />
-    <state x="425" y="187" key="run.anything.popup" timestamp="1619039747641">
+    <state x="425" y="187" key="run.anything.popup" timestamp="1619692210177">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="425" y="187" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1619039747641" />
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1619053888992">
+    <state x="425" y="187" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1619692210177" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1619208455097">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1619053888992" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1619208455097" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Lab6$ServerSide.ic" NAME="ServerSide Coverage Results" MODIFIED="1619295791694" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>client.*</FILTER>
+    </SUITE>
   </component>
 </project>
