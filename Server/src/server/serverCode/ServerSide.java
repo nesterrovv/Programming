@@ -11,13 +11,13 @@ public class ServerSide {
 
     public static void main(String[] args) {
         try (ServerSocket server = new ServerSocket(8800)) {
-            System.out.print("Server is accepting a client. " + "\nPort " + server.getLocalPort() +
+            System.out.println("Server is accepting a client. " + "\nPort " + server.getLocalPort() +
                     " / Address " + InetAddress.getLocalHost() + ".\nWaiting a connection of clients... ");
             Thread pointer = new Thread(() -> {
                 while (!Thread.currentThread().isInterrupted()) {
-                    System.out.print(".");
+                    System.out.println("Waiting...");
                     try {
-                        Thread.sleep(1000);
+                        Thread.sleep(5000);
                     } catch (InterruptedException e) {
                         System.out.print("\n");
                         Thread.currentThread().interrupt();
