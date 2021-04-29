@@ -81,6 +81,7 @@ public class CollectionManager {
                         XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
                         XMLEventReader xmlEventReader = xmlInputFactory.createXMLEventReader(inputStream);
                         // initialize jaxb
+                        // initialize jaxb
                         JAXBContext context = JAXBContext.newInstance(Person.class);
                         Unmarshaller unmarshaller = context.createUnmarshaller();
                         XMLEvent e;
@@ -106,7 +107,6 @@ public class CollectionManager {
                                 } else counterBad += 1;
                             } else {
                                 xmlEventReader.next();
-                                xmlEventReader.next();
                             }
                         }
                         System.out.println("Collection was loaded successfully. " + counterGood + " elements has been loaded.");
@@ -125,6 +125,9 @@ public class CollectionManager {
                 } else System.out.println("Try again.");
             }
         } catch (NoSuchElementException noSuchElementException) {
+            System.out.println("Really here");
+            System.out.println(persons);
+            show();
             System.out.println("Program will be finished now.");
             System.exit(0);
         }
@@ -159,18 +162,22 @@ public class CollectionManager {
     }
 
     /** Method for printing information about the collection */
-    public void info() {
-        System.out.println("Type of collection: java.util.HashSet");
-        System.out.println("Initialization date: " + initializationDate);
-        System.out.println("Amount of elements in the collection: " + persons.size());
-        System.out.println("Collection manager is active: " + wasStart);
+    public String info() {
+        StringBuilder result = new StringBuilder();
+        result.append("Type of collection: java.util.HashSet" + "\n");
+        result.append("Initialization date: " + initializationDate + "\n");
+        result.append("Amount of elements in the collection: " + persons.size() + "\n");
+        result.append("Collection manager is active: " + wasStart);
+        return result.toString();
     }
 
     /** Method for printing collection elements into the string representation */
-    public void show() {
+    public ArrayList<String> show() {
+        ArrayList<String> printedPersons = new ArrayList<>();
         for (Person person : persons) {
-            System.out.println(person.toString() + "\n");
+            printedPersons.add(person.toString() + "\n");
         }
+        return printedPersons;
     }
 
     /**
@@ -457,9 +464,15 @@ public class CollectionManager {
 
     /** Method for adding element by using all receive-fields methods */
     public void add() {
+       /*
+        Person newPerson = new Person(receiveId(), receiveName(), receiveCoordinates(), returnDate(),
+                receiveHeight(), receiveEyeColor(), receiveHairColor(), receiveNationality(), receiveLocation());
+        persons.add(person);
+        */
         Person newPerson = new Person(receiveId(), receiveName(), receiveCoordinates(), returnDate(),
                 receiveHeight(), receiveEyeColor(), receiveHairColor(), receiveNationality(), receiveLocation());
         persons.add(newPerson);
+        //return "Element has been added successfully.";
     }
 
     /** Method for saving (marshaling) java collection to XML-file and updating hash of file */
@@ -521,12 +534,12 @@ public class CollectionManager {
     }
 
     /** Method for printing sum of element`s heights */
-    public void sum_of_height() {
+    public double sum_of_height() {
         double sum = 0;
         for (Person person : persons) {
             sum += person.getHeight();
         }
-        System.out.println("Sum of height values in this collection is " + sum);
+        return sum;
     }
 
     /** Method for switching off the program */
@@ -548,7 +561,7 @@ public class CollectionManager {
     }
 
     /** Method for counting amount of elements, which nationality`s hashcode greater than entered nationality */
-    public void count_greater_than_nationality (Country country) {
+    public String count_greater_than_nationality (Country country) {
         int exampleHashcode = country.hashCode();
         int counter = 0;
         for (Person person : persons) {
@@ -556,24 +569,28 @@ public class CollectionManager {
                 counter += 1;
             }
         }
-        System.out.println("Operation was finished successfully. " + counter + " elements.");
+        return "Operation was finished successfully. " + counter + " elements.";
     }
 
     /** Method for removing the element by it`s ID */
     public void remove_by_id(String id) {
-        for (Person person : persons) {
-            int intId = person.getId();
-            String strId = String.valueOf(intId);
-            if (strId.equals(id)) {
-                persons.remove(person);
-                System.out.println("Element was deleted successfully.");
+        try {
+            for (Person person : persons) {
+                int intId = person.getId();
+                String strId = String.valueOf(intId);
+                if (strId.equals(id)) {
+                    persons.remove(person);
+                    System.out.println("Element was deleted successfully.");
+                }
             }
+            System.out.println("Element with this ID is not defined.");
+        } catch (ConcurrentModificationException concurrentModificationException) {
+            System.out.println("Command is complited.");
         }
-        System.out.println("Element with this ID is not defined.");
     }
 
     /** Method for updating the element by it`s ID */
-    public void update_by_id(String id) {
+    public String update_by_id(String id) {
         for (Person person : persons) {
             int intId = person.getId();
             String strId = String.valueOf(intId);
@@ -582,15 +599,14 @@ public class CollectionManager {
                 Person updatedPerson = new Person(intId, receiveName(), receiveCoordinates(), person.returnCreationDate(),
                         receiveHeight(), receiveEyeColor(), receiveHairColor(), receiveNationality(), receiveLocation());
                 persons.add(updatedPerson);
-                System.out.println("Element was updated successfully.");
+                return "Element was updated successfully.";
             }
         }
-        System.out.println("Element with this ID is not defined. Try again.");
-        System.out.println("Element with this ID is not defined.");
+    return null;
     }
 
     /** Method for counting amount and grouping elements by it`s nationality field */
-    public void group_counting_by_nationality() {
+    public String group_counting_by_nationality() {
         int chinaCounter = 0;
         int germanyCounter = 0;
         int northKoreaCounter = 0;
@@ -604,10 +620,12 @@ public class CollectionManager {
                     northKoreaCounter += 1;
             }
         }
-        System.out.println("Elements of this collection were grouped by nationality.");
-        System.out.println("First group: China. Amount of elements: " + chinaCounter);
-        System.out.println("Second group: Germany. Amount of elements: " + germanyCounter);
-        System.out.println("Third group: North Korea. Amount of elements: " + northKoreaCounter);
+        StringBuilder result = new StringBuilder();
+        result.append("Elements of this collection were grouped by nationality." + "\n");
+        result.append("First group: China. Amount of elements: " + chinaCounter + "\n");
+        result.append("Second group: Germany. Amount of elements: " + germanyCounter + "\n");
+        result.append("Third group: North Korea. Amount of elements: " + northKoreaCounter);
+        return result.toString();
     }
 
     /** Method for executing script from external file */
@@ -631,7 +649,11 @@ public class CollectionManager {
                         show();
                         break;
                     case "add":
-                        add();
+                        //
+                        //
+                        //
+                        //
+                        // add();
                         break;
                     case "update_by_id":
                         update_by_id(finalUserCommand[1]);
@@ -688,6 +710,10 @@ public class CollectionManager {
     /** Method for printing current date in string representation */
     public String returnDate() {
         return ZonedDateTime.now().toString();
+    }
+
+    public HashSet<Person> getPersons() {
+        return persons;
     }
 
     public HashMap getInfoCommands() {
