@@ -1,6 +1,8 @@
 package server.commands;
 
 import server.serverCode.CollectionManager;
+import java.util.HashMap;
+import java.util.Map;
 
 public class HelpCommand extends AbstractCommand {
 
@@ -11,7 +13,11 @@ public class HelpCommand extends AbstractCommand {
 
     @Override
     public synchronized String execute() {
-        getManager().help();
-        return "Manual is ended.";
+        StringBuilder result = new StringBuilder();
+        HashMap<String, String> commandsInfo = getManager().getInfoCommands();
+        for (Map.Entry<String, String> entry : commandsInfo.entrySet()) {
+            result.append(entry.getKey() + entry.getValue() + "\n");
+        }
+        return result.toString();
     }
 }
