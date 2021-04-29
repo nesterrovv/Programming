@@ -11,7 +11,8 @@ public class InfoCommand extends AbstractCommand {
 
     @Override
     public synchronized String execute() {
-        getManager().info();
-        return "Information is ended.";
+        StringBuilder result = new StringBuilder();
+        result.append(getManager().info());
+        return result.toString();
     }
 }
