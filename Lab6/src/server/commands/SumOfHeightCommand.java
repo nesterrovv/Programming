@@ -10,7 +10,9 @@ public class SumOfHeightCommand extends AbstractCommand {
     }
 
     public synchronized String execute() {
-        getManager().sum_of_height();
-        return "Command is completed.";
+        StringBuilder result = new StringBuilder();
+        result.append("Sum of element`s heights is " + getManager().sum_of_height());
+        return result.toString();
+        //return "Command is completed.";
     }
 }
