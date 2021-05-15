@@ -23,10 +23,10 @@ public class AddIfMinCommand extends AbstractCommand {
                     minimalHeight = person.getHeight();
                 }
             }
-            XmlMapper mapper = new XmlMapper();
-            Person example = mapper.readValue(arg, Person.class);
-            if (example.getHeight() < minimalHeight) {
-                getManager().getPersons().add(mapper.readValue(arg, Person.class));
+            //XmlMapper mapper = new XmlMapper();
+            Person person = new XmlMapper().readValue(arg, Person.class);
+            if (person.getHeight() < minimalHeight) {
+                getManager().getPersons().add(person);
                 getManager().save();
                 return "Element was added successfully.";
 

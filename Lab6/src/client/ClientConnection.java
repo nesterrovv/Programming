@@ -1,7 +1,12 @@
 package client;
 
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import server.data.Person;
+import server.serverCode.CollectionManager;
+
 import java.io.*;
 import java.net.*;
+import java.time.ZonedDateTime;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
@@ -23,6 +28,30 @@ public class ClientConnection {
             while (true) {
                 String command = fromKeyboard.nextLine();
                 String[] parsedCommand = command.trim().split(" ", 3);
+                if (parsedCommand[0].equals("add")) {
+                    Receiver receiver = new Receiver();
+                    Person person = new Person(receiver.receiveId(), receiver.receiveName(), receiver.receiveCoordinates(),
+                            ZonedDateTime.now().toString(), receiver.receiveHeight(), receiver.receiveEyeColor(),
+                            receiver.receiveHairColor(), receiver.receiveNationality(), receiver.receiveLocation());
+                    StringBuilder result = new StringBuilder();
+                    XmlMapper mapper = new XmlMapper();
+                    result.append("add").append(" ").append(mapper.writeValueAsString(person));
+                    buf = result.toString().getBytes();
+                    DatagramPacket packet = new DatagramPacket(buf, buf.length, address, 4242);
+                    socket.send(packet);
+                }
+                if (parsedCommand[0].equals("add_if_min")) {
+                    Receiver receiver = new Receiver();
+                    Person person = new Person(receiver.receiveId(), receiver.receiveName(), receiver.receiveCoordinates(),
+                            ZonedDateTime.now().toString(), receiver.receiveHeight(), receiver.receiveEyeColor(),
+                            receiver.receiveHairColor(), receiver.receiveNationality(), receiver.receiveLocation());
+                    StringBuilder result = new StringBuilder();
+                    XmlMapper mapper = new XmlMapper();
+                    result.append("add_if_min").append(" ").append(mapper.writeValueAsString(person));
+                    buf = result.toString().getBytes();
+                    DatagramPacket packet = new DatagramPacket(buf, buf.length, address, 4242);
+                    socket.send(packet);
+                }
                 if (parsedCommand[0].equals("exit")) {
                     buf = command.getBytes();
                     DatagramPacket packet = new DatagramPacket(buf, buf.length, address, 4242);

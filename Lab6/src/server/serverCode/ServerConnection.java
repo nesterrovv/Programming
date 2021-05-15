@@ -61,15 +61,12 @@ public class ServerConnection implements Runnable {
                 //packet = new DatagramPacket(buf, buf.length, address, port);
                 String command = new String(packet.getData(), 0, packet.getLength());
                 System.out.println("Message [" + command + "] is received from client.");
-                String[] parsedCommand = command.trim().split(" ", 3);
+                String[] parsedCommand = command.trim().split(" ", 2);
                 String answer;
                 if (parsedCommand.length == 1) {
                     answer = availableCommands.getOrDefault(parsedCommand[0], errorCommand).execute();
                 } else if (parsedCommand.length == 2) {
                     answer = availableCommands.getOrDefault(parsedCommand[0], errorCommand).execute(parsedCommand[1]);
-                } else if (parsedCommand.length == 3) {
-                    answer = availableCommands.getOrDefault(parsedCommand[0], errorCommand).execute(parsedCommand[1],
-                            parsedCommand[2]);
                 } else answer = "Unknown command. Write [help] for receiving list of available commands";
                 buf2 = answer.getBytes();
                 DatagramPacket sendingPacket = new DatagramPacket(buf2, buf2.length, address, port);

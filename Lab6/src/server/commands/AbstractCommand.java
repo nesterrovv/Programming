@@ -17,12 +17,12 @@ public abstract class AbstractCommand {
     }
 
     public synchronized String execute(String arg) {
-        return execute();
+        return execute(arg);
     }
 
-    public  synchronized  String execute(String arg1, String arg2) {
-        return execute();
-    }
+    //public  synchronized  String execute(String arg1, String arg2) {
+      //  return execute();
+    //}
 
     public void setDescription(String description) {
         this.description = description;

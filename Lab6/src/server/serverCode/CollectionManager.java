@@ -8,8 +8,6 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.time.ZonedDateTime;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -68,42 +66,42 @@ public class CollectionManager {
 
     // Constructor for checking a path to file existence and file readiness to work
     public CollectionManager(String arg) {
-        Scanner scanner = new Scanner(System.in);
+        //Scanner scanner = new Scanner(System.in);
         try {
-            for ( ; ; ) {
-                //System.out.print("Enter a full path to XML file with collection: ");
-                String pathToFile = arg;
-                if (checkFile(pathToFile)) {
-                    try {
-                        final QName qName = new QName("person");
-                        InputStream inputStream = new FileInputStream(new File(pathToFile));
-                        // create xml event reader for input stream
-                        XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
-                        XMLEventReader xmlEventReader = xmlInputFactory.createXMLEventReader(inputStream);
-                        // initialize jaxb
-                        // initialize jaxb
-                        JAXBContext context = JAXBContext.newInstance(Person.class);
-                        Unmarshaller unmarshaller = context.createUnmarshaller();
-                        XMLEvent e;
-                        // Field for counting amount of downloaded elements
-                        int counterGood = 0;
-                        int counterBad = 0;
-                        // Loop for unmarshalling the collection
-                        while ((e = xmlEventReader.peek()) != null) {
-                            // check the event is a Document start element
-                            if (e.isStartElement() && ((StartElement) e).getName().equals(qName)) {
-                                // unmarshall the document
-                                Person unmarshalledPerson = unmarshaller.unmarshal(xmlEventReader, Person.class).getValue();
-                                Coordinates newCoordinates = unmarshalledPerson.getCoordinates();
-                                Location newLocation = unmarshalledPerson.getLocation();
-                                if (unmarshalledPerson.getId() != 0 && !unmarshalledPerson.getName().equals(null) &&
-                                !newCoordinates.getX().equals(null) && !newCoordinates.getY().equals(null) &&
-                                !unmarshalledPerson.returnCreationDate().equals(null) && unmarshalledPerson.getHeight() > 0
-                                && !unmarshalledPerson.getEyeColor().equals(null) && !unmarshalledPerson.getHairColor().equals(null)
-                                && !unmarshalledPerson.getNationality().equals(null) && !newLocation.getX().equals(null) &&
-                                !newLocation.getY().equals(null) && !newLocation.getName().equals(null)) {
-                                    persons.add(unmarshalledPerson);
-                                    counterGood += 1;
+            //String pathToFile = arg;
+            if (checkFile(arg)) {
+                try {
+                    final QName qName = new QName("person");
+                    InputStream inputStream = new FileInputStream(new File(arg));
+                    // create xml event reader for input stream
+                    XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
+                    XMLEventReader xmlEventReader = xmlInputFactory.createXMLEventReader(inputStream);
+                    // initialize jaxb
+                    JAXBContext context = JAXBContext.newInstance(Person.class);
+                    Unmarshaller unmarshaller = context.createUnmarshaller();
+                    XMLEvent e;
+                    // Field for counting amount of downloaded elements
+                    int counterGood = 0;
+                    int counterBad = 0;
+                    // Loop for unmarshalling the collection
+                    while ((e = xmlEventReader.peek()) != null) {
+                        // check the event is a Document start element
+                        if (e.isStartElement() && ((StartElement) e).getName().equals(qName)) {
+                            // unmarshall the document
+                            Person unmarshalledPerson = unmarshaller.unmarshal(xmlEventReader, Person.class).getValue();
+                            Coordinates newCoordinates = unmarshalledPerson.getCoordinates();
+                            Location newLocation = unmarshalledPerson.getLocation();
+                            if (unmarshalledPerson.getId() != 0 && !unmarshalledPerson.getName().equals(null) &&
+                                    !newCoordinates.getX().equals(null) && !newCoordinates.getY().equals(null) &&
+                                    !unmarshalledPerson.returnCreationDate().equals(null) &&
+                                    unmarshalledPerson.getHeight() > 0 &&
+                                    !unmarshalledPerson.getEyeColor().equals(null) &&
+                                    !unmarshalledPerson.getHairColor().equals(null) &&
+                                    !unmarshalledPerson.getNationality().equals(null) &&
+                                    !newLocation.getX().equals(null) &&
+                                    !newLocation.getY().equals(null) && !newLocation.getName().equals(null)) {
+                                        persons.add(unmarshalledPerson);
+                                        counterGood += 1;
                                 } else counterBad += 1;
                             } else {
                                 xmlEventReader.next();
@@ -111,23 +109,21 @@ public class CollectionManager {
                         }
                         System.out.println("Collection was loaded successfully. " + counterGood + " elements has been loaded.");
                         System.out.println("Amount of elements which contains invalid values and has not been loaded: " + counterBad);
-                        xmlCollection = new File(pathToFile);
+                        xmlCollection = new File(arg);
                         wasStart = true;
                         initializationDate = ZonedDateTime.now();
-                        break;
                     } catch (JAXBException jaxbException) {
                         System.out.println("XML syntax error.");
                     } catch (FileNotFoundException fileNotFoundException) {
                         System.out.println("File not found");
                     } catch (XMLStreamException xmlStreamException) {
-                        System.out.println("XML Stream error. File is not a XML-collection");
-                        System.exit(1);
+                        xmlCollection = new File(arg);
+                        System.out.println("Empty collection was loaded successfully.");
                     }
                 } else {
                     System.out.println("Invalid path to file. Try again.");
                     System.exit(1);
                 }
-            }
         } catch (NoSuchElementException noSuchElementException) {
             System.out.println("Program will be finished now.");
             System.exit(0);
@@ -141,7 +137,7 @@ public class CollectionManager {
     public boolean checkFile(String pathToFile) {
         File checkingFile = new File(pathToFile);
         if (!checkingFile.exists()) {
-            System.out.println("File not found. Try again.");
+            //System.out.println("File not found. Try again.");
             return false;
         }
         if (!checkingFile.canRead()) {
