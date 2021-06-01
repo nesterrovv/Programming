@@ -1,12 +1,8 @@
 package serverCode.commands;
 
-import serverCode.ServerConnection;
-
 public class SaveCommand extends AbstractCommand {
 
-    private ServerConnection serverConnection;
-    public SaveCommand(ServerConnection connection) {
-        this.serverConnection = connection;
+    public SaveCommand() {
         setDescription("Does nothing. Saving is an automatic process :)");
     }
 

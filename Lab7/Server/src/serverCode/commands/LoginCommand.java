@@ -18,14 +18,13 @@ import java.util.HashMap;
  */
 public class LoginCommand extends AbstractCommand {
 
-    private Connection currentConnection;
+    private final ServerConnection serverConnection;
 
-    public LoginCommand(Connection currentConnection) {
-        this.currentConnection = currentConnection;
+    public LoginCommand(ServerConnection currentConnection) {
+        this.serverConnection = currentConnection;
         setDescription("Войти под своей учётной записью. Синтаксис {login email}.");
     }
 
-    @Override
     public synchronized String execute(String[] args) {
         try {
             if (args.length < 2) throw new IllegalArgumentException();
@@ -36,7 +35,7 @@ public class LoginCommand extends AbstractCommand {
                         prepareStatement("SELECT master_id FROM users WHERE email = ? AND password = ?");
                 request.setString(1, email.toString());
                 try {
-                    request.setString(2, PasswordManager.getHash(args[1], "SHA1"));
+                    request.setString(2, PasswordManager.getHash(args[1], "SHA512"));
                 } catch (NoSuchAlgorithmException e) {
                     e.printStackTrace();
                     System.err.println("Обращение к БД без хэширования.");
@@ -62,23 +61,11 @@ public class LoginCommand extends AbstractCommand {
     }
 
     private void setAccess(int ID) {
-        currentConnection.setId(ID);
-        HashMap<String, AbstractCommand> com = currentConnection.getCommands();
-        com.put("add", new AddCommand(currentConnection));
-        com.put("add_if_min", new AddIfMinCommand(currentConnection));
-        com.put("clear", new ClearCommand(currentConnection));
-        com.put("import", new ImportCommand(currentConnection));
-        com.put("info", new InfoCommand(currentConnection));
-        com.put("load", new LoadCommand());
-        com.put("remove_all", new RemoveAllCommand(currentConnection));
-        com.put("remove", new RemoveCommand(currentConnection));
-        com.put("remove_greater", new RemoveGreaterCommand(currentConnection));
-        com.put("remove_last", new RemoveLastCommand(currentConnection));
-        com.put("save", new SaveCommand());
-        com.put("show", new ShowCommand(currentConnection));
-        com.put("sort", new SortCommand());
-        com.remove("login");
-        com.remove("register");
-        System.out.println("Пользователь " + currentConnection.getSocket() + " получил доступ к коллекции.");
+        serverConnection.setId(ID);
+        HashMap<String, AbstractCommand> commands = serverConnection.getAvailableCommands();
+        commands.put("help", new HelpCommand());
+        commands.remove("login");
+        commands.remove("register");
+        System.out.println("Пользователь " + serverConnection.getSocket() + " получил доступ к коллекции.");
     }
 }

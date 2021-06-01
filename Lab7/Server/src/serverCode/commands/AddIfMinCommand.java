@@ -3,7 +3,6 @@ package serverCode.commands;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import data.Person;
-import serverCode.ServerConnection;
 import serverCode.managers.CollectionManager;
 
 import java.io.IOException;
@@ -11,13 +10,11 @@ import java.util.Set;
 
 public class AddIfMinCommand extends AbstractCommand {
 
-    private ServerConnection serverConnection;
-
-    public AddIfMinCommand(ServerConnection serverConnection) {
-        this.serverConnection = serverConnection;
+    public AddIfMinCommand() {
         setDescription("Adds an element to collection if it`s height less then min height in this collection");
     }
 
+    @Override
     public synchronized String execute(String arg) {
         try {
             CollectionManager manager = CollectionManager.getInstance();
@@ -28,7 +25,6 @@ public class AddIfMinCommand extends AbstractCommand {
                     minimalHeight = person.getHeight();
                 }
             }
-            //XmlMapper mapper = new XmlMapper();
             Person person = new XmlMapper().readValue(arg, Person.class);
             if (person.getHeight() < minimalHeight) {
                 manager.getPersons().add(person);

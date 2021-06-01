@@ -4,24 +4,23 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import data.Person;
 import serverCode.ServerConnection;
 import serverCode.managers.CollectionManager;
-
 import java.io.IOException;
 
 
 public class AddCommand extends AbstractCommand {
 
-    private ServerConnection connection;
+    private final ServerConnection serverConnection;
 
     public AddCommand(ServerConnection connection) {
-        this.connection = connection;
+        this.serverConnection = connection;
         setDescription("Adds new element to the collection.");
     }
 
-    public synchronized String execute(String[] args) {
+    public synchronized String execute(String arg) {
         try {
             CollectionManager manager = CollectionManager.getInstance();
-            Person person = new XmlMapper().readValue(args[0], Person.class);
-            person.setId(connection.getId());
+            Person person = new XmlMapper().readValue(arg, Person.class);
+            person.setId(serverConnection.getId());
             manager.getPersons().add(person);
             manager.save();
             return "Element was added successfully.";

@@ -15,22 +15,22 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 /**
- * Класс {@code RegisterCommand} переопределяет метод {@code execute()} для осуществления регистрации в БД.
- * @author Артемий Кульбако
- * @version 1.5
- * @since 01.06.19
+ * Класс {@code RegisterCommand} command which overrides method
+ * {@code execute()} for realizing connection to database
+ * @author Ivan Nesterov
+ * @version 1.1
  */
 public class RegisterCommand extends AbstractCommand {
 
     public RegisterCommand() {
-        setDescription("Зарегистрироваться в системе. Синтаксис {register email}." +
-                "\nПароль будет сгенерирован и отправлен на указанною почту.");
+        setDescription("Command allows to register into system. Syntax: {register email}." +
+                "\nPassword will be generated automatically and will be sent to the indicated email.");
     }
 
     @Override
-    public synchronized String execute(String[] args) {
+    public synchronized String execute(String arg) {
         try {
-            InternetAddress email = new InternetAddress(args[0]);
+            InternetAddress email = new InternetAddress(arg);
             email.validate();
             String password = PasswordManager.generateNewPassword();
             try (Connection connection = DatabaseManager.getInstance().getConnection()) {
@@ -42,7 +42,7 @@ public class RegisterCommand extends AbstractCommand {
                     request.setString(2, PasswordManager.getHash(password, "SHA512"));
                 } catch (NoSuchAlgorithmException e) {
                     e.printStackTrace();
-                    System.err.println("Пароль будет записан в БД без хэширования.");
+                    System.err.println("Password will be written to the database without hashing.");
                     request.setString(2, password);
                 }
                 request.setString(3, email.toString());
@@ -50,16 +50,16 @@ public class RegisterCommand extends AbstractCommand {
                     try {
                         sendPassword(email, password);
                         connection.commit();
-                        return "Регистрация завершена. Пароль отправлен на указанную почту.";
+                        return "Registration was finished successfully. Password is sent to indicated email.";
                     } catch (MessagingException e) {
                         e.printStackTrace();
                         connection.rollback();
-                        return "Не удалось завершить регистрацию из-за ошибки на сервере. Попробуйте позже.";
+                        return "Registration is not finished successfully. Please try later.";
                     }
-                } else return "Указанная почта занята.";
+                } else return "Account with indicated email is already exist.";
             } catch (SQLException e) {
                 e.printStackTrace();
-                return "Произошла ошибка на стороне сервера при отправке запроса к БД. Попробуйте ещё раз позже.";
+                return "Something bad with receiving request to database. Please try again.";
             }
         } catch (AddressException e) {
             return e.getMessage();
@@ -82,7 +82,7 @@ public class RegisterCommand extends AbstractCommand {
             message.setSubject("Пароль для регистрации в lab7.");
             message.setText("Пароль: " + password);
             Transport.send(message);
-            System.out.println("Пользователь с почтой " + email + " зарегистрировался в системе.");
+            System.out.println("User with email " + email + " was registered into the system.");
         } catch (IOException | NullPointerException e) {
             e.printStackTrace();
         }

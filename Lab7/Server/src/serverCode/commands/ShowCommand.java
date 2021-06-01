@@ -3,12 +3,11 @@ package serverCode.commands;
 import data.Person;
 import serverCode.ServerConnection;
 import serverCode.managers.CollectionManager;
-
 import java.util.Set;
 
 public class ShowCommand extends AbstractCommand {
 
-    private ServerConnection serverConnection;
+    private final ServerConnection serverConnection;
 
     public ShowCommand(ServerConnection connection) {
         this.serverConnection = connection;

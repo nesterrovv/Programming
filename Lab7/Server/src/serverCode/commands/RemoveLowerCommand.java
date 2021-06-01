@@ -1,28 +1,32 @@
-package server.commands;
+package serverCode.commands;
 
-import server.data.Person;
-import server.serverCode.CollectionManager;
-import java.util.HashSet;
+import data.Person;
+import serverCode.ServerConnection;
+import serverCode.managers.CollectionManager;
+
+import java.util.Set;
 
 public class RemoveLowerCommand extends AbstractCommand {
 
-    public RemoveLowerCommand(CollectionManager manager) {
-        super(manager);
-        setDescription("Removes all elements which height less than current.");
+    ServerConnection serverConnection;
+
+    public RemoveLowerCommand(ServerConnection connection) {
+        this.serverConnection = connection;
+        setDescription("Removes all elements which height more than current.");
     }
 
     public synchronized String execute(String arg) {
-        Long longHeight = new Long(Long.valueOf(arg));
-        long height = longHeight;
-        HashSet<Person> persons = getManager().getPersons();
+        CollectionManager manager = CollectionManager.getInstance();
+        long height = Long.valueOf(arg);
+        Set<Person> persons = CollectionManager.getInstance().getPersons();
         int counter = 0;
         for (Person person : persons) {
-            if (person.getHeight() > height) {
+            if (person.getHeight() < height) {
                 persons.remove(person);
                 counter += 1;
             }
         }
-        getManager().save();
+        manager.save();
         return "Operation was finished successfully. " + counter + " elements were deleted.";
     }
 }

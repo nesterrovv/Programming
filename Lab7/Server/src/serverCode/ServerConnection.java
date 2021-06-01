@@ -1,25 +1,21 @@
 package serverCode;
 
-import serverCode.managers.CollectionManager;
 import serverCode.commands.*;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.net.SocketException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
-
-
 public class ServerConnection implements Runnable {
 
-    private DatagramSocket socket;
+    private final DatagramSocket socket;
     private boolean running;
-    private byte[] buf = new byte[65535];
+    private final byte[] buf = new byte[65535];
     private byte[] buf2 = new byte[65535];
     private final HashMap<String, AbstractCommand> availableCommands = new HashMap<>();
     private int id;
@@ -29,7 +25,7 @@ public class ServerConnection implements Runnable {
         availableCommands.put("login", new LoginCommand(this));
         availableCommands.put("register", new RegisterCommand());
         availableCommands.put("delete_account", new DeleteAccountCommand(this));
-        availableCommands.put("help", new HelpCommand(availableCommands));
+        availableCommands.put("help", new HelpCommand());
     }
 
 
@@ -83,6 +79,10 @@ public class ServerConnection implements Runnable {
 
     public DatagramSocket getSocket() {
         return this.socket;
+    }
+
+    public HashMap<String, AbstractCommand> getAvailableCommands() {
+        return availableCommands;
     }
 
     @Override

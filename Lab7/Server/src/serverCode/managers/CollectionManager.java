@@ -54,6 +54,32 @@ public final class CollectionManager {
         } return instance;
     }
 
+    public HashMap<String, String> getCommands() {
+        HashMap<String, String> commands = new HashMap<>();
+        commands.put("help"," - prints manual about available commands.");
+        commands.put("info"," - prints information about your collection.");
+        commands.put("show"," - prints all elements of your collection into a string representation.");
+        commands.put("add"," - adds new element to the database.");
+        commands.put("update_by_id {id}"," - updates the element using it ID. You need to write this ID.");
+        commands.put("remove_by_id {id}"," - removes the element using it ID. You need to write this ID.");
+        commands.put("clear"," - removes all elements of collection.");
+        commands.put("execute_script {/path/to/file}"," - executes script from file. You need to write absolute path to"+
+                "this script. \nAttention! Invalid commands are not executes. Therefore script should contain 1 command"+
+                "in a line \nand commands must be written in the form indicated in this manual.");
+        commands.put("exit"," - switches off the program.");
+        commands.put("add_if_min"," - adds element to collection if it less than the smallest element of collection");
+        commands.put("remove_greater"," - removes from collection all elements witch greater than current.");
+        commands.put("remove_lower"," - removes from collection all elements witch lower than current.");
+        commands.put("sum_of_height"," - prints sum of a field height of each element in collection");
+        commands.put("group_counting_by_nationality {nationality}"," - groups all elements by its field nationality"+
+                "\n and prints amount of elements in each group. Attention! You need to write this nationality."+
+                "\n Variants: GERMANY, CHINA, NORTH_KOREA");
+        commands.put("count_greater_than_nationality {nationality}"," - prints amount of elements whcih field "+
+                "nationality is greater than current. Attention! You need to write this nationality."+
+                "\n Variants: GERMANY, CHINA, NORTH_KOREA");
+        return commands;
+    }
+
     /**
      * Загружает коллекцию из базы данных.
      */
@@ -76,7 +102,7 @@ public final class CollectionManager {
             conn.setAutoCommit(false);
             request.addBatch("DELETE FROM persons");
             for (Person p: persons) {
-                String msg = "INSERT INTO shortys VALUES ('" + p.getName() + "', " + p.getCoordinates() + ", "
+                String msg = "INSERT INTO persons VALUES ('" + p.getName() + "', " + p.getCoordinates() + ", "
                         + p.getHeight() + ", " + p.getEyeColor() + ", " + p.getHairColor() + ", " + p.getNationality()
                         + ", " + p.getLocation() + ", '" + xmlMapper.writeValueAsString(p.returnCreationDate()) + "', "
                         + p.getId() + ")";

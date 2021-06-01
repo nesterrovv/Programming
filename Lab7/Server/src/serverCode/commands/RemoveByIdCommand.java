@@ -1,42 +1,30 @@
 package serverCode.commands;
 
-import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import data.Person;
-import serverCode.ServerConnection;
 import serverCode.managers.CollectionManager;
 
-import java.io.IOException;
 import java.util.Set;
 
 public class RemoveByIdCommand extends AbstractCommand {
 
-    private ServerConnection serverConnection;
-
-    public RemoveByIdCommand(ServerConnection connection) {
-        this.serverConnection = connection;
+    public RemoveByIdCommand() {
         setDescription("Removes element of the collection by it's id");
     }
 
     @Override
-    public synchronized String execute(String[] args) {
-        XmlMapper mapper = new XmlMapper();
-        try {
-            CollectionManager manager = CollectionManager.getInstance();
-            Person person = mapper.readValue(args[0], Person.class);
-            int id = person.getId();
-            Set<Person> collection = manager.getPersons();
-            for (Person p : collection) {
-                if (p.getId() == id) {
-                    collection.remove(p);
-                    collection.add(person);
+    public synchronized String execute(String arg) {
+        CollectionManager manager = CollectionManager.getInstance();
+        Set<Person> collection = manager.getPersons();
+        int id = Integer.parseInt(arg);
+        if (collection.size() != 0) {
+            for (Person person : collection) {
+                if (person.getId() == id) {
+                    collection.remove(person);
                     manager.save();
-                    return "Element was added successfully";
+                    return "Element was removed successfully.";
                 }
             }
-            return "Element was not added.";
-
-        } catch (IOException ioException) {
-            return "Invalid argument. Try again.";
-        }
+            return "Element with this ID is not exist.";
+        } else return "Collection is empty.";
     }
 }

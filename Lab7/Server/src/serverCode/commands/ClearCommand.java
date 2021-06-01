@@ -5,7 +5,7 @@ import serverCode.managers.CollectionManager;
 
 public class ClearCommand extends AbstractCommand {
 
-    private ServerConnection serverConnection;
+    private final ServerConnection serverConnection;
 
     public ClearCommand(ServerConnection connection) {
         this.serverConnection = connection;
@@ -17,6 +17,6 @@ public class ClearCommand extends AbstractCommand {
         CollectionManager manager = CollectionManager.getInstance();
         manager.getPersons().removeIf(p -> (p != null && p.getId() == serverConnection.getId()));
         manager.save();
-        return "Из коллекции удалены все ваши элементы.";
+        return "All your elements are removed.";
     }
 }

@@ -1,8 +1,10 @@
 package serverCode.commands;
 
+import serverCode.ServerConnection;
 import serverCode.managers.CollectionManager;
 import serverCode.managers.DatabaseManager;
 import serverCode.managers.PasswordManager;
+
 import javax.mail.*;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
@@ -10,26 +12,25 @@ import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.NoSuchAlgorithmException;
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Properties;
 
 /**
- * Класс {@code DeleteAccountCommand} переопределяет метод {@code execute()} для удаление запись о пользователе из БД.
- * @author Артемий Кульбако
- * @version 1.2
- * @since 01.06.19
+ * Class {@code DeleteAccountCommand} overloads method {@code execute()} for removing user's account from database
+ * @author Ivan Nesterov
+ * @version 1.1
  */
 public class DeleteAccountCommand extends AbstractCommand {
 
-    private serverCode.ServerConnection currentConnection;
+    private final ServerConnection currentConnection;
 
     public DeleteAccountCommand(serverCode.ServerConnection currentConnection) {
         this.currentConnection = currentConnection;
-        setDescription("Удалить свой аккаунт. Синтаксис {remove_account email password}. " +
-                "Будут также удалены все ваши элементы.");
+        setDescription("Removes your account. Syntax: {remove_account email password}. " +
+                "All your elements also will be removed from collection into database.");
     }
 
-    @Override
     public synchronized String execute(String[] args) {
         try {
             if (args.length < 2) throw new IllegalArgumentException();
@@ -44,7 +45,7 @@ public class DeleteAccountCommand extends AbstractCommand {
                     request.setString(2, PasswordManager.getHash(args[1], "SHA1"));
                 } catch (NoSuchAlgorithmException e) {
                     e.printStackTrace();
-                    System.err.println("Пароль будет записан в БД без хэширования.");
+                    System.err.println("Password will be written into database without hashing.");
                     request.setString(2, args[1]);
                 }
                 if (request.executeUpdate() == 1) {
@@ -53,16 +54,16 @@ public class DeleteAccountCommand extends AbstractCommand {
                         CollectionManager.getInstance().getPersons().removeIf(p -> p.getId()
                                 == currentConnection.getId());
                         connection.commit();
-                        return "Ваш аккаунт был удалён.";
+                        return "Your account was deleted";
                     } catch (MessagingException e) {
                         e.printStackTrace();
                         connection.rollback();
-                        return "Не удалось удалить аккаунт из-за ошибки на сервере. Попробуйте позже.";
+                        return "Unable to delete your account due to an error on the server. Please try later.";
                     }
-                } else return "Пользователь с такими данными не найден.";
+                } else return "User with this email or password is not exist.";
             } catch (SQLException e) {
                 e.printStackTrace();
-                return "Произошла ошибка на стороне сервера. Попробуйте ещё раз позже.";
+                return "Server error. Please try later.";
             }
         } catch (AddressException e) {
             return e.getMessage();
@@ -84,10 +85,10 @@ public class DeleteAccountCommand extends AbstractCommand {
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(prop.getProperty("sender_email")));
             message.setRecipient(Message.RecipientType.TO, email);
-            message.setSubject("Удаление аккаунта.");
-            message.setText("Ваш аккаунт был удалён с " + currentConnection.getSocket().getInetAddress());
+            message.setSubject("Removing an account.");
+            message.setText("Your account was removed from " + currentConnection.getSocket().getInetAddress());
             Transport.send(message);
-            System.out.println("Пользователь с почтой " + email + " удалил аккаунт.");
+            System.out.println("User having email " + email + " removed an account.");
         } catch (IOException | NullPointerException e) {
             e.printStackTrace();
         }
