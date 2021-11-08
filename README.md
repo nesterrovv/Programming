@@ -270,7 +270,7 @@ public enum Country {
 
 ## Laboratory work #6 ##
 
-Divide the program from laboratory work No. 5 into client and server modules. The server module must execute commands for managing the collection. The client module must interactively read commands, send them for execution to the server, and output the results of execution.
+Divide the program from **laboratory work #5** into client and server modules. The server module must execute commands for managing the collection. The client module must interactively read commands, send them for execution to the server, and output the results of execution.
 
 ### The following requirements must be met: ###
 
@@ -334,3 +334,50 @@ Implement logging of various stages of server operation (starting work, receivin
 1. ```Serializable``` interface. Object graph, serialization and deserialization of fields and methods.
 1. Java Stream API. Creation of conveyors. Intermediate and terminal operations.
 1. Design patterns: Decorator, Iterator, Factory method, Command, Flyweight, Interpreter, Singleton, Strategy, Adapter, Facade, Proxy.
+
+## Laboratory work #7 ##
+
+Modify the program from **laboratory work #6** as follows:
+
+1. Organize collection storage in a relational DBMS (PostgresQL). Remove storage of the collection in a file.
+1. Use the database facility (sequence) to generate the id field.
+1. Update the state of the collection in memory only when the object is successfully added to the database
+1. All data retrieval commands must work with the collection in memory, not in the database
+1. Organize the possibility of registration and authorization of users. The user has the option to specify a password.
+1. Store passwords hashed using the ```SHA-512``` algorithm
+1. Prevent unauthorized users from executing commands.
+1. When storing objects, store information about the user who created this object.
+1. Users should be able to view all objects in the collection, but only those that belong to them can be modified.
+1. To identify the user, send a username and password with each request.
+
+It is necessary to implement **multithreaded request processing**.
+
+1. For multi-threaded reading of requests, use the ```Cached thread pool```
+1. For multithreaded processing of the received request, use the ```Cached thread pool```
+1. Use ```Cached thread pool``` for multithreaded response
+1. To synchronize access to the collection use synchronization read and write using ```java.util.concurrent.locks.ReadWriteLock```
+
+### Work order: ###
+
+1. Use PostgreSQL as a database.
+1. To connect to the database on the cathedral server, use the host ```pg```, the database name is ```studs```, the username / password are the same as for connecting to the server.
+
+### The work report should contain: ###
+
+1. The text of the task.
+1. Class diagram of the developed program.
+1. The source code of the program.
+1. Conclusions on the work.
+
+### Questions to defend laboratory work: ###
+
+1. Multithreading. ```Thread``` class, interface ```Runnable```. The ```synchronized``` modifier.
+1. The ```wait()```, ```notify()``` methods of the ```Object``` class, the ```Lock``` and ```Condition``` interfaces.
+1. Synchronizing classes from the ```java.util.concurrent``` package.
+1. The ```volatile``` modifier. Atomic data types and operations.
+1. Collections from the ```java.util.concurrent``` package.
+1. ```Executor```, ```ExecutorService```, ```Callable```, ```Future``` interfaces
+1. Thread pools
+1. JDBC. The order of interaction with the database. ```DriverManager``` class. ```Connection``` interface
+1. Interfaces ```Statement```, ```PreparedStatement```, ```ResultSet```, ```RowSet```
+1. Design patterns.
