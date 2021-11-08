@@ -1,4 +1,4 @@
-﻿**Laboratory work #1.**
+﻿*Laboratory work #1.*
 
 Write a Java program that performs the appropriate action. The program must meet the following requirements:
 
