@@ -267,3 +267,70 @@ public enum Country {
     NORTH_KOREA;
 }
 ```
+
+## Laboratory work #6 ##
+
+Divide the program from laboratory work No. 5 into client and server modules. The server module must execute commands for managing the collection. The client module must interactively read commands, send them for execution to the server, and output the results of execution.
+
+### The following requirements must be met: ###
+
+1. Collection object processing operations must be implemented using the Stream API using lambda expressions.
+1. Objects between client and server must be serialized.
+1. Objects in the collection passed to the client should be sorted by default
+1. The client must correctly handle temporary server unavailability.
+1. The exchange of data between the client and the server must be carried out using the UDP protocol
+1. To exchange data on the server, you must use a **network channel**
+1. To exchange data on the client, you must use **datagrams**
+1. Network links must be used in non-blocking mode.
+
+### Responsibilities of the server application: ###
+
+1. Working with a file that stores a collection.
+1. Managing a collection of objects.
+1. Assigning automatically generated fields to objects in a collection.
+1. Waiting for connections and requests from the client.
+1. Processing received requests (commands).
+1. Saving the collection to a file when the application exits.
+1. Saving a collection to a file when executing a special command available only to the server (the client cannot send such a command).
+
+### The server application should consist of the following modules (implemented as one or more classes): ###
+
+1. The module for accepting connections.
+1. Request reader.
+1.The module for processing received commands.
+1. Module for sending responses to the client.
+
+The server must be running in **single threaded** mode.
+
+### Responsibilities of the client application: ###
+
+1. Reading commands from the console.
+1. Validation of input data.
+1. Serialization of the entered command and its arguments.
+1. Sending the received command and its arguments to the server.
+1. Processing a response from the server (outputting the result of command execution to the console).
+1. The ```save``` command must be removed from the client application.
+1. The ```exit``` command terminates the client application.
+
+**Important!** Commands and their arguments must be class objects. The exchange of "simple" strings is inadmissible. So, for the ```add``` command or its equivalent, you need to form an object containing the command type and the object that should be stored in your collection.
+Additional task:
+Implement logging of various stages of server operation (starting work, receiving a new connection, receiving a new request, sending a response, etc.) using **Logback**
+
+### The work report should contain: ###
+
+1. The text of the task.
+1. Class diagram of the developed program (both client and server applications).
+1. The source code of the program.
+1. Conclusions on the work.
+
+### Questions to defend laboratory work: ###
+
+1. Networking - client-server architecture, basic protocols, their similarities and differences.
+1. TCP protocol. ```Socket``` and ```ServerSocket``` classes.
+1. UDP protocol. The ```DatagramSocket``` and ```DatagramPacket``` classes.
+1. Differences between blocking and non-blocking Input/Output, their advantages and disadvantages. Working with network channels.
+1. ```SocketChannel``` and ```DatagramChannel``` classes.
+1. Data transmission over the network. Serialization of objects.
+1. ```Serializable``` interface. Object graph, serialization and deserialization of fields and methods.
+1. Java Stream API. Creation of conveyors. Intermediate and terminal operations.
+1. Design patterns: Decorator, Iterator, Factory method, Command, Flyweight, Interpreter, Singleton, Strategy, Adapter, Facade, Proxy.
