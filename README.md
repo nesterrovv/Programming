@@ -1,4 +1,4 @@
-# Programming course by ITMO University, 1st year studying. #
+# Programming course by ITMO University, 1st year studying #
 
 ## Laboratory work #1. ##
 
