@@ -232,24 +232,24 @@ Implement a console application that implements interactive management of a coll
 
 ```
 public class Person {
-    private int id; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
-    private String name; //Поле не может быть null, Строка не может быть пустой
-    private Coordinates coordinates; //Поле не может быть null
-    private java.time.LocalDateTime creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
-    private long height; //Значение поля должно быть больше 0
-    private Color eyeColor; //Поле не может быть null
-    private Color hairColor; //Поле может быть null
-    private Country nationality; //Поле не может быть null
-    private Location location; //Поле не может быть null
+    private int id; //The field value must be greater than 0, The value of this field must be unique, The value of this field must be generated automatically
+    private String name; //Field cannot be null, String cannot be empty
+    private Coordinates coordinates; //The field cannot be null
+    private java.time.LocalDateTime creationDate; //The field cannot be null, the value of this field must be generated automatically
+    private long height; //The field value must be greater than 0
+    private Color eyeColor; //The field can be null
+    private Color hairColor; //The field can be null
+    private Country nationality; //The field can be null
+    private Location location; //The field can be null
 }
 public class Coordinates {
-    private long x; //Максимальное значение поля: 690
+    private long x; //Maximum Field Value: 690
     private float y;
 }
 public class Location {
     private long x;
-    private Float y; //Поле не может быть null
-    private String name; //Поле не может быть null
+    private Float y; //The field cannot be null
+    private String name; //The field cannot be null
 }
 public enum Color {
     GREEN,
