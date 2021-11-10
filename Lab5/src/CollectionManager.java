@@ -6,12 +6,9 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.time.ZonedDateTime;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
-
 import data.*;
 
 /**
@@ -72,10 +69,10 @@ public class CollectionManager {
             for ( ; ; ) {
                 System.out.print("Enter a full path to XML file with collection: ");
                 String pathToFile = scanner.nextLine();
-                if (checkFile(pathToFile)) {
+                if (checkPermissions(pathToFile)) {
                     try {
                         final QName qName = new QName("person");
-                        InputStream inputStream = new FileInputStream(new File(pathToFile));
+                        InputStream inputStream = new FileInputStream(pathToFile);
                         // create xml event reader for input stream
                         XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
                         XMLEventReader xmlEventReader = xmlInputFactory.createXMLEventReader(inputStream);
@@ -131,9 +128,9 @@ public class CollectionManager {
 
     /**
      * Class which check file is existed, and can be readable and writeable.
-     * @return readiness status
+     * @return result of checkup
      */
-    public boolean checkFile(String pathToFile) {
+    public boolean checkPermissions(String pathToFile) {
         File checkingFile = new File(pathToFile);
         if (!checkingFile.exists()) {
             System.out.println("File not found. Try again.");
@@ -159,7 +156,7 @@ public class CollectionManager {
 
     /** Method for printing information about the collection */
     public void info() {
-        System.out.println("Type of collection: java.util.HashSet");
+        System.out.println("Type of collection: " + persons.getClass());
         System.out.println("Initialization date: " + initializationDate);
         System.out.println("Amount of elements in the collection: " + persons.size());
         System.out.println("Collection manager is active: " + wasStart);
@@ -613,8 +610,7 @@ public class CollectionManager {
     public void execute_script(String nameOfFile) {
         try {
             System.out.println("WARNING. To avoid recursion, your file cannot contain execute script commands.");
-            BufferedReader reader = new BufferedReader(new FileReader(new File(nameOfFile)));
-            //private String userCommand;
+            BufferedReader reader = new BufferedReader(new FileReader(nameOfFile));
             String[] finalUserCommand;
             String command;
             while((command = reader.readLine()) != null) {
